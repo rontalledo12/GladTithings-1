@@ -108,13 +108,13 @@ class Landing extends Component {
             </View>
             <View style={{
               position: 'absolute',
-              bottom: 20
+              bottom: 10
             }}>
               <Button content={<Text style={{ color: 'white' }}>Get Started</Text>}
                 styles={[BasicStyles.btnRound, {
                   marginTop: '20%',
                   width: '100%',
-                  marginBottom: 80
+                  marginBottom: '20%'
                 }]} redirect={() => this.props.navigation.navigate('registerStack')} />
                 <Text style={{
                 color: 'white',
@@ -122,7 +122,6 @@ class Landing extends Component {
               }}>Already have an account?&nbsp;&nbsp;
                 <Text
                   style={{
-                    textDecorationLine: 'underline',
                     fontFamily: 'Poppins-SemiBold',
                     fontSize: BasicStyles.standardFontSize + 2
                   }}
