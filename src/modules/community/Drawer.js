@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => {
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
 const communityStack = createStackNavigator({
-  historyScreen: {
+  communityScreen: {
     screen: Screen,
     navigationOptions: ({navigation}) => ({
       title: 'Community',

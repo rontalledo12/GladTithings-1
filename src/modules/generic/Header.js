@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, Dimensions, SafeAreaView, TextInput } fro
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAlignLeft, faBars, faChevronLeft, faClock, faHistory, faShoppingBag, faStar, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { BasicStyles, Color } from 'common';
 const width = Math.round(Dimensions.get('window').width)
 
@@ -16,6 +17,29 @@ class Header extends Component {
 
   searchHandler = (value) => {
     this.setState({ search: value });
+  }
+
+  navigateToScreen = (route, message) => {
+    
+    this.props.navigation.toggleDrawer();
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'drawerStack',
+      action: StackActions.reset({
+        index: 0,
+        key: null,
+        actions: [
+          NavigationActions.navigate({
+            routeName: route,
+            params: {
+              initialRouteName: route,
+              index: 0,
+              message: message
+            }
+          }),
+        ]
+      })
+    });
+    this.props.navigation.dispatch(navigateAction);
   }
 
   back = () => {
@@ -53,7 +77,9 @@ class Header extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('historyStack', { title: 'History' })}
+          onPress={() => {
+            this.navigateToScreen('MessagePage', 'Success Message')
+          }}
           style={{
             justifyContent: 'center',
             alignItems: 'center',

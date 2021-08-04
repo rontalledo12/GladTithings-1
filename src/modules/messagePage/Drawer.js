@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faChevronLeft, faBars} from '@fortawesome/free-solid-svg-icons';
-import Screen from 'modules/viewProfile';
-import {NavigationActions} from 'react-navigation';
+import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import Screen from 'modules/messagePage';
 import {BasicStyles, Color} from 'common';
 import {connect} from 'react-redux';
 
@@ -40,11 +39,11 @@ const mapDispatchToProps = (dispatch) => {
 };
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
-const ViewProfileStack = createStackNavigator({
-  viewProfileScreen: {
+const messagePageStack = createStackNavigator({
+  messagePageScreen: {
     screen: Screen,
     navigationOptions: ({navigation}) => ({
-      title: navigation.state?.params?.user?.account?.information?.first_name ? navigation.state?.params?.user?.account?.information?.first_name + ' ' + navigation.state?.params?.user?.account?.information?.last_name : navigation.state?.params?.user?.account?.username,
+      title: navigation.state?.params?.message,
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
       ...BasicStyles.headerDrawerStyle
     }),
@@ -54,4 +53,4 @@ const ViewProfileStack = createStackNavigator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ViewProfileStack);
+)(messagePageStack);

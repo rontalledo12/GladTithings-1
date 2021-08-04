@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { Color } from 'common';
 import Footer from 'modules/generic/Footer';
 import { connect } from 'react-redux';
+import DataMessages from '../generic/DataMessages';
 
 const width = Math.round(Dimensions.get('window').width)
 const height = Math.round(Dimensions.get('window').height)
@@ -25,7 +26,6 @@ class HomePage extends Component {
             paddingLeft: 15
           }}>
             <Text>Homepage</Text>
-            
           </View>
         </ScrollView>
         <Footer layer={0} {...this.props} />

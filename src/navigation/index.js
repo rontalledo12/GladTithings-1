@@ -2,11 +2,15 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Login from 'src/modules/account/Login';
 import ForgotPassword from 'src/modules/account/ForgotPassword';
 import Register from 'src/modules/account/Register';
-import ViewProfileStack from 'src/modules/viewProfile/Drawer'
-import ProfileStack from 'src/modules/profile/Drawer'
-import Welcome from 'src/modules/account/Landing'
-import CommunityStack from 'src/modules/community/Drawer'
-import SubscriptionStack from 'src/modules/community/Drawer'
+import ViewProfileStack from 'src/modules/viewProfile/Drawer';
+import ProfileStack from 'src/modules/profile/Drawer';
+import Welcome from 'src/modules/account/Landing';
+import CommunityStack from 'src/modules/community/Drawer';
+import SubscriptionStack from 'src/modules/subscription/Drawer';
+import MessagePageStack from 'src/modules/messagePage/Drawer';
+import PrivacyStack from 'src/modules/privacy/Drawer';
+import TermsAndConditionsStack from 'src/modules/termsAndConditions/Drawer';
+import DisplayStack from 'src/modules/display/DisplayDrawer';
 import Drawer from './Drawer';
 
 const WelcomeStack = createStackNavigator(
@@ -64,7 +68,11 @@ const PrimaryNav = createStackNavigator(
     profileStack: {screen: ProfileStack},
     viewProfileStack: {screen: ViewProfileStack},
     communityStack: {screen: CommunityStack},
-    subscriptionStack: {screen: SubscriptionStack}
+    subscriptionStack: {screen: SubscriptionStack},
+    messagePageStack: {screen: MessagePageStack},
+    termsAndConditionStack: {screen: TermsAndConditionsStack},
+    privacyStack: {screen: PrivacyStack},
+    displayStack: {screen: DisplayStack}
   },
   {
     // Default config for all screens

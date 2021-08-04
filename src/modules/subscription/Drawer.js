@@ -3,7 +3,7 @@ import {View, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
-import Screen from 'modules/subscriptions';
+import Screen from 'modules/subscription';
 import {BasicStyles, Color} from 'common';
 import {connect} from 'react-redux';
 
@@ -40,10 +40,10 @@ const mapDispatchToProps = (dispatch) => {
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
 const subscriptionStack = createStackNavigator({
-  subscriptionStack: {
+  subscriptionScreen: {
     screen: Screen,
     navigationOptions: ({navigation}) => ({
-      title: 'Subscriptions',
+      title: 'Subscription',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
       ...BasicStyles.headerDrawerStyle
     }),

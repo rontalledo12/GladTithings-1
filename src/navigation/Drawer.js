@@ -8,9 +8,9 @@ import Homepage from 'modules/homepage';
 import Settings from 'modules/display';
 import Privacy from 'modules/privacy';
 import Community from 'modules/community';
-import Subscription from 'modules/subscriptions';
 import TermsAndConditions from 'modules/termsAndConditions';
-import Header from 'src/modules/generic/Header'
+import Header from 'src/modules/generic/Header';
+import MessagePage from 'src/modules/messagePage/index.js';
 
 import Style from './Style.js';
 import { connect } from 'react-redux'
@@ -74,14 +74,6 @@ const _StackNavigator = createStackNavigator({
       ...BasicStyles.drawerHeader
     }),
   },
-  Subscription: {
-    screen: Subscription,
-    navigationOptions: ({navigation}) => ({
-      title: null,
-      headerLeft: <Header navigation={navigation} />,
-      ...BasicStyles.drawerHeader
-    }),
-  },
   TermsAndConditions: {
     screen: TermsAndConditions,
     navigationOptions: ({navigation}) => ({
@@ -92,6 +84,14 @@ const _StackNavigator = createStackNavigator({
   },
   Privacy: {
     screen: Privacy,
+    navigationOptions: ({navigation}) => ({
+      title: null,
+      headerLeft: <Header navigation={navigation} />,
+      ...BasicStyles.drawerHeader
+    }),
+  },
+  MessagePage: {
+    screen: MessagePage,
     navigationOptions: ({navigation}) => ({
       title: null,
       headerLeft: <Header navigation={navigation} />,
@@ -132,12 +132,6 @@ const Drawer = createDrawerNavigator(
         drawerLabel: '',
       },
     },
-    Subscription: {
-      screen: _StackNavigator,
-      navigationOptions: {
-        drawerLabel: '',
-      },
-    },
     TermsAndConditions: {
       screen: _StackNavigator,
       navigationOptions: {
@@ -145,6 +139,12 @@ const Drawer = createDrawerNavigator(
       },
     },
     Privacy: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: '',
+      },
+    },
+    MessagePage: {
       screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: '',

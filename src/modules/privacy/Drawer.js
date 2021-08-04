@@ -40,11 +40,11 @@ const mapDispatchToProps = (dispatch) => {
 };
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
-const TermsAndConditionsStack = createStackNavigator({
-  termsAndConditionsScreen: {
+const PrivacyStack = createStackNavigator({
+  privacyScreen: {
     screen: Screen,
     navigationOptions: ({navigation}) => ({
-      title: 'Terms And Conditions',
+      title: 'Privacy',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
       ...BasicStyles.headerDrawerStyle
     }),
@@ -54,4 +54,4 @@ const TermsAndConditionsStack = createStackNavigator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TermsAndConditionsStack);
+)(PrivacyStack);

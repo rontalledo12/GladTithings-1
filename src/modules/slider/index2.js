@@ -27,6 +27,17 @@ class Slider2 extends Component {
       this.onShare()
       return
     }
+    if(route === 'drawerStack') {
+      this.props.navigation.toggleDrawer();
+      this.navigate('Homepage')
+      return
+    }
+    this.props.navigation.navigate(route);
+    this.props.navigation.toggleDrawer();
+  }
+
+  navigate = (route) => {
+    console.log('--');
     this.props.navigation.toggleDrawer();
     const navigateAction = NavigationActions.navigate({
       routeName: 'drawerStack',
