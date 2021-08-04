@@ -1,5 +1,5 @@
 
-let primary = '#7BE495'
+let primary = '#56C596'
 let secondary = '#000000'
 let tertiary = '#4CCBA6'
 let fourth = '#F88BFF'
@@ -7,7 +7,7 @@ let gradient = ['#CFF4D2', '#7BE495', '#56C596']
 export default {
   primaryDark: '#cae166',
   primary: primary,
-  danger: '#FF6262',
+  danger: '#C84848',
   warning: '#ffc107',
   secondary: secondary,
   white: '#fff',

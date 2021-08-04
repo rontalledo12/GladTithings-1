@@ -8,7 +8,7 @@ import Config from 'src/config.js';
 import Api from 'services/api';
 import UserImage from 'components/User/Image';
 import ImageModal from 'components/Modal/ImageModal.js';
-import Styles from './Styles.js'
+import Styles from './PostCardStyles.js'
 
 const height = Math.round(Dimensions.get('window').height);
 const width = Math.round(Dimensions.get('window').width);
@@ -160,7 +160,7 @@ class PostCard extends Component {
         <Text style={{
           fontSize: BasicStyles.standardFontSize
         }}>{data.message}</Text>
-        {this.props.images === 1 &&
+        {this.props.images.length === 1 &&
           <View style={{
             height: 200,
             width: '100%',
@@ -174,7 +174,7 @@ class PostCard extends Component {
             </TouchableOpacity>
           </View>
         }
-        {this.props.images === 2 &&
+        {this.props.images.length === 2 &&
           <View style={{
             height: 200,
             width: '100%',
@@ -183,28 +183,22 @@ class PostCard extends Component {
             flexDirection: 'row'
           }}>
             <TouchableOpacity
-              style={{
-                height: '100%',
-                width: '50%',
-              }}
+              style={Styles.twoImages}
               onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
               <Image
                 source={require('assets/test.jpg')}
-                style={Styles.image}/>
+                style={Styles.image} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                height: '100%',
-                width: '50%',
-              }}
+              style={Styles.twoImages}
               onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
               <Image
                 source={require('assets/test.jpg')}
-                style={Styles.image}/>
+                style={Styles.image} />
             </TouchableOpacity>
           </View>
         }
-        {this.props.images === 3 &&
+        {this.props.images.length === 3 &&
           <View style={{
             height: 200,
             width: '100%',
@@ -220,36 +214,30 @@ class PostCard extends Component {
               onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
               <Image
                 source={require('assets/test.jpg')}
-                style={Styles.image}/>
+                style={Styles.image} />
             </TouchableOpacity>
             <View style={{
               height: 200,
               width: '50%',
             }}>
               <TouchableOpacity
-                style={{
-                  height: '50%',
-                  width: '100%'
-                }}
+                style={Styles.fourImages}
                 onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
                 <Image
                   source={require('assets/test.jpg')}
-                  style={Styles.image}/>
+                  style={Styles.image} />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{
-                  height: '50%',
-                  width: '100%'
-                }}
+                style={Styles.fourImages}
                 onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
                 <Image
                   source={require('assets/test.jpg')}
-                  style={Styles.image}/>
+                  style={Styles.image} />
               </TouchableOpacity>
             </View>
           </View>
         }
-        {this.props.images === 4 &&
+        {this.props.images.length > 3 &&
           <View style={{
             height: 200,
             width: '100%',
@@ -262,24 +250,18 @@ class PostCard extends Component {
               width: '50%',
             }}>
               <TouchableOpacity
-                style={{
-                  height: '50%',
-                  width: '100%'
-                }}
+                style={Styles.fourImages}
                 onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
                 <Image
                   source={require('assets/test.jpg')}
-                  style={Styles.image}/>
+                  style={Styles.image} />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{
-                  height: '50%',
-                  width: '100%'
-                }}
+                style={Styles.fourImages}
                 onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
                 <Image
                   source={require('assets/test.jpg')}
-                  style={Styles.image}/>
+                  style={Styles.image} />
               </TouchableOpacity>
             </View>
             <View style={{
@@ -287,23 +269,18 @@ class PostCard extends Component {
               width: '50%',
             }}>
               <TouchableOpacity
-                style={{
-                  height: '50%',
-                  width: '100%'
-                }}
+                style={Styles.fourImages}
                 onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
                 <Image
                   source={require('assets/test.jpg')}
-                  style={Styles.image}/>
+                  style={Styles.image} />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{
-                  height: '50%',
-                  width: '100%'
-                }} onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+                style={Styles.fourImages}
+                onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
                 <Image
                   source={require('assets/test.jpg')}
-                  style={Styles.image}/>
+                  style={Styles.image} />
               </TouchableOpacity>
             </View>
           </View>

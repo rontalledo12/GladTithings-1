@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationActions, StackActions} from 'react-navigation';
 import HomePage from 'modules/homepage/Stack';
+import Community from 'modules/community/Stack';
 import DisplayStack from 'modules/display/Stack';
 import TermsAndConditions from 'modules/termsAndConditions/Stack'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -58,6 +59,25 @@ export default function TabNavigatorSecondLayer(props) {
           name="Settings"
           children={route => (
             <DisplayStack
+              {...route}
+              initialPage={props.navigation.state.routeName}
+              parentNav={props.navigation}
+            />
+          )}
+          options={{
+            tabBarIcon: () => 
+            <FontAwesomeIcon
+              icon={faBell}
+              size={30}
+              color={Color.gray}
+              style={Style.footerIcon}
+              />,
+          }}
+        />
+        <Tab.Screen
+          name="Community"
+          children={route => (
+            <Community
               {...route}
               initialPage={props.navigation.state.routeName}
               parentNav={props.navigation}

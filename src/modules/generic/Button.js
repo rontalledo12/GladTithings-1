@@ -13,18 +13,14 @@ class Button extends Component {
   render() {
     const { theme } = this.props.state;
     return (
-      <View>
-        <TouchableOpacity style={[
-          this.props.styles, {
-          padding: 10,
-          paddingLeft: 40,
-          paddingRight: 40,
-          borderRadius: 50,
-          backgroundColor: theme ? theme.secondary : Color.secondary
-        }]} onPress={() => this.props.redirect()} underlayColor={Color.gray}>
-            {this.props.content}
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={{
+        alignItems: 'center',
+        borderRadius: 50,
+        backgroundColor: theme ? theme.secondary : Color.secondary,
+        ...this.props.style
+      }} onPress={() => this.props.redirect()} underlayColor={Color.gray}>
+        {this.props.content}
+      </TouchableOpacity>
     )
   }
 }

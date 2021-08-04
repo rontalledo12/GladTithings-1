@@ -23,17 +23,31 @@ export default {
   DrawerMenu: [
     {
       title: 'Homepage',
-      route: 'Homepage',
+      route: 'drawerStack',
       icon: faHome,
       borderBottom: false,
       currentPage: 'drawerStack'
     },
     {
       title: 'Theme Settings',
-      route: 'Settings',
+      route: 'displayStack',
       icon: faCog,
       borderBottom: false,
       currentPage: 'Settings'
+    },
+    {
+      title: 'Community',
+      route: 'communityStack',
+      icon: faCog,
+      borderBottom: false,
+      currentPage: 'Community'
+    },
+    {
+      title: 'Subscription',
+      route: 'subscriptionStack',
+      icon: faCog,
+      borderBottom: false,
+      currentPage: 'Subscription'
     },
     {
       title: 'Share Profile',
@@ -45,26 +59,17 @@ export default {
   ],
   DrawerMenu1: [{
     title: 'Terms & Conditions',
-    route: 'TermsAndConditions',
+    route: 'termsAndConditionStack',
     icon: faCopy,
     borderBottom: false
   },
   {
     title: 'Privacy Policy',
-    route: 'Privacy',
+    route: 'privacyStack',
     icon: faShieldAlt,
     borderBottom: false
   }],
-  tutorials: [
-    // {
-    //   key: 1,
-    //   title: 'Welcome to Agicord!',
-    //   text: 'Delivering food and more to your doorstep!',
-    //   icon: null,
-    //   // image: require('assets/logo.png'),
-    //   colors: [Color.primary, Color.lightGray],
-    // },
-  ],
+  tutorials: [],
   referral: {
     message:
       `Share the benefits of <<popular products>> with your friends and family. ` +
