@@ -93,6 +93,7 @@ class Slider2 extends Component {
 
   render() {
     const { user, theme } = this.props.state;
+    console.log(user, '---');
     const { colors } = this.state
     return (
       <LinearGradient
@@ -102,7 +103,6 @@ class Slider2 extends Component {
         end={{ x: 1, y: 1 }}
         style={{
           height: '100%',
-          paddingRight: 10,
           width: width
         }}
       >
@@ -112,22 +112,21 @@ class Slider2 extends Component {
         }}>
           <View
             style={{
-              backgroundColor: Color.containerBackground,
               height: '100%',
-              width: '25%',
-              borderTopRightRadius: 40,
-              borderBottomRightRadius: 50,
-              zIndex: 999,
-              elevation: 50
+              width: '100%'
             }}>
-            <View style={{
-              marginTop: '40%',
-              marginLeft: 10
-            }}>
-              <TouchableOpacity onPress={() => this.props.navigation.toggleDrawer()}>
-                <FontAwesomeIcon color={Color.primary} icon={faTimes} size={BasicStyles.iconSize}></FontAwesomeIcon>
+              <TouchableOpacity style={{
+                  marginTop: '2%',
+                  marginLeft: 10
+                }}
+                onPress={() => this.props.navigation.toggleDrawer()}
+              >
+                <FontAwesomeIcon
+                  color={Color.white}
+                  icon={faTimes}
+                  size={BasicStyles.iconSize}
+                />
               </TouchableOpacity>
-            </View>
           </View>
           {
             user !== null ? (

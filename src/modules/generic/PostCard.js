@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Image, Dimensions, Text, TextInput, Alert } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCheck, faTimes, faStar, faUserCircle, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes, faStar, faUserCircle, faEllipsisH, faPrayingHands, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import { BasicStyles, Color, Routes } from 'common';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import Api from 'services/api';
 import UserImage from 'components/User/Image';
+import ImageModal from 'components/Modal/ImageModal.js';
+import Styles from './Styles.js'
 
 const height = Math.round(Dimensions.get('window').height);
+const width = Math.round(Dimensions.get('window').width);
 
 class PostCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       reply: null,
-      options: false
+      options: false,
+      imageModalUrl: null,
+      isImageModal: false
     }
   }
 
@@ -56,7 +61,7 @@ class PostCard extends Component {
     if (data.members && data.members?.length > 0) {
       let temp = data.members
       data.members.length === 1 && data.members.map((item, index) => {
-        if(item.account_id == this.props.state.user.id) {
+        if (item.account_id == this.props.state.user.id) {
           status = true;
         }
       })
@@ -83,9 +88,13 @@ class PostCard extends Component {
         ...BasicStyles.standardWidth,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: 20,
+        paddingTop: show ? 20 : 0,
       }}>
-        <UserImage user={data.user} size={30} />
+        <UserImage
+          marginLeft={-2}
+          user={data.user}
+          size={35}
+        />
         <View style={{
           paddingLeft: 5,
           justifyContent: 'space-between',
@@ -104,9 +113,15 @@ class PostCard extends Component {
               {data.date}
             </Text>
           </View>
-          {data?.user?.id === this.props.state.user.id && show === true && <TouchableOpacity onPress={() => { this.setState({ options: !this.state.options }) }}>
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              right: 5,
+              top: 0
+            }}
+            onPress={() => { this.setState({ options: !this.state.options }) }}>
             <FontAwesomeIcon icon={faEllipsisH} />
-          </TouchableOpacity>}
+          </TouchableOpacity>
           {this.state.options === true && show === true && (<TouchableOpacity style={{
             position: 'absolute',
             right: -5,
@@ -128,19 +143,185 @@ class PostCard extends Component {
     )
   }
 
+  setImage = (url) => {
+    this.setState({ imageModalUrl: url })
+    setTimeout(() => {
+      this.setState({ isImageModal: true })
+    }, 500)
+  }
+
   renderBody = (data) => {
     return (
       <View style={{
         ...BasicStyles.standardWidth,
-        flexDirection: 'row',
-        alignItems: 'center',
         paddingTop: 20,
-        paddingBottom: 20,
+        paddingBottom: 10,
       }}>
         <Text style={{
           fontSize: BasicStyles.standardFontSize
         }}>{data.message}</Text>
+        {this.props.images === 1 &&
+          <View style={{
+            height: 200,
+            width: '100%',
+            marginBottom: 10,
+            marginTop: 10
+          }}>
+            <TouchableOpacity onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+              <Image
+                source={require('assets/test.jpg')}
+                style={Styles.image} />
+            </TouchableOpacity>
+          </View>
+        }
+        {this.props.images === 2 &&
+          <View style={{
+            height: 200,
+            width: '100%',
+            marginBottom: 10,
+            marginTop: 10,
+            flexDirection: 'row'
+          }}>
+            <TouchableOpacity
+              style={{
+                height: '100%',
+                width: '50%',
+              }}
+              onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+              <Image
+                source={require('assets/test.jpg')}
+                style={Styles.image}/>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                height: '100%',
+                width: '50%',
+              }}
+              onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+              <Image
+                source={require('assets/test.jpg')}
+                style={Styles.image}/>
+            </TouchableOpacity>
+          </View>
+        }
+        {this.props.images === 3 &&
+          <View style={{
+            height: 200,
+            width: '100%',
+            marginBottom: 10,
+            marginTop: 10,
+            flexDirection: 'row'
+          }}>
+            <TouchableOpacity
+              style={{
+                height: '100%',
+                width: '50%'
+              }}
+              onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+              <Image
+                source={require('assets/test.jpg')}
+                style={Styles.image}/>
+            </TouchableOpacity>
+            <View style={{
+              height: 200,
+              width: '50%',
+            }}>
+              <TouchableOpacity
+                style={{
+                  height: '50%',
+                  width: '100%'
+                }}
+                onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+                <Image
+                  source={require('assets/test.jpg')}
+                  style={Styles.image}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  height: '50%',
+                  width: '100%'
+                }}
+                onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+                <Image
+                  source={require('assets/test.jpg')}
+                  style={Styles.image}/>
+              </TouchableOpacity>
+            </View>
+          </View>
+        }
+        {this.props.images === 4 &&
+          <View style={{
+            height: 200,
+            width: '100%',
+            marginBottom: 10,
+            marginTop: 10,
+            flexDirection: 'row'
+          }}>
+            <View style={{
+              height: 200,
+              width: '50%',
+            }}>
+              <TouchableOpacity
+                style={{
+                  height: '50%',
+                  width: '100%'
+                }}
+                onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+                <Image
+                  source={require('assets/test.jpg')}
+                  style={Styles.image}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  height: '50%',
+                  width: '100%'
+                }}
+                onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+                <Image
+                  source={require('assets/test.jpg')}
+                  style={Styles.image}/>
+              </TouchableOpacity>
+            </View>
+            <View style={{
+              height: 200,
+              width: '50%',
+            }}>
+              <TouchableOpacity
+                style={{
+                  height: '50%',
+                  width: '100%'
+                }}
+                onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+                <Image
+                  source={require('assets/test.jpg')}
+                  style={Styles.image}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  height: '50%',
+                  width: '100%'
+                }} onPress={() => { this.setImage(Config.BACKEND_URL + '') }}>
+                <Image
+                  source={require('assets/test.jpg')}
+                  style={Styles.image}/>
+              </TouchableOpacity>
+            </View>
+          </View>
+        }
+      </View>
+    )
+  }
 
+  renderComment = (data) => {
+    return (
+      <View style={{
+        ...BasicStyles.standardWidth,
+        paddingTop: 10,
+        paddingBottom: 10,
+      }}>
+        <Text style={{
+          fontSize: BasicStyles.standardFontSize
+        }}>{data.message}</Text>
       </View>
     )
   }
@@ -156,68 +337,52 @@ class PostCard extends Component {
         flexDirection: 'row'
       }}>
         <TouchableOpacity style={{
-          width: '23%',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: 20,
-          borderColor: data.liked === 'true' ? Color.primary : Color.gray,
-          borderWidth: .3,
-          height: 35,
-          marginRight: 5,
-          backgroundColor: data.liked === 'true' ? Color.primary : Color.white
+          marginRight: 20,
+          flexDirection: 'row'
         }}
           onPress={() => {
-            this.props.onLike(data)
+            // this.props.onLike(data)
           }}
         >
+          <FontAwesomeIcon
+            icon={faPrayingHands}
+            size={20}
+            style={{
+              color: Color.gray
+            }}
+          />
           <Text style={{
-            color: data.liked === 'true' ? Color.white : Color.black,
-            fontSize: 11
-          }}>{data.liked === 'true' ? 'Liked' : 'Like'}</Text>
+            marginLeft: 10,
+            fontSize: 13,
+            color: Color.gray
+          }}>Amen</Text>
         </TouchableOpacity>
 
 
         <TouchableOpacity style={{
-          width: '23%',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: 20,
-          borderColor: data.joined === 'true' ? Color.primary : Color.gray,
-          borderWidth: .3,
-          height: 35,
           marginRight: 5,
-          backgroundColor: data.joined === 'true' ? Color.primary : Color.white
+          flexDirection: 'row'
         }}
           onPress={() => {
-            this.props.onJoin(data)
+            // this.props.onLike(data)
           }}
         >
+          <FontAwesomeIcon
+            icon={faCommentAlt}
+            size={20}
+            style={{
+              color: Color.black
+            }}
+          />
           <Text style={{
-            color: data.joined === 'true' ? Color.white : Color.black,
-            fontSize: 11
-          }}>{data.joined === 'true' ? 'Joined' : 'Join'}</Text>
+            marginLeft: 10,
+            fontSize: 13
+          }}>Comment</Text>
         </TouchableOpacity>
-        <Text style={{ color: 'gray', fontSize: 11 }}>{data?.members?.length} joined</Text>
-        {data.user?.id === this.props.state.user.id && <TouchableOpacity style={{
-          position: 'absolute',
-          right: 0,
-          bottom: 20,
-          width: '25%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 20,
-          height: 35,
-          padding: 5,
-          backgroundColor: theme ? theme.primary : Color.primary,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-          onPress={() => this.createSynqt(data)}>
-          <Text style={{
-            color: Color.white,
-            fontSize: 10
-          }} numberOfLines={1} adjustsFontSizeToFit>Create SYNQT</Text>
-        </TouchableOpacity>}
       </View>
     )
   }
@@ -225,66 +390,46 @@ class PostCard extends Component {
 
   renderComments = (comments) => {
     const { user, theme } = this.props.state;
-    console.log(user, '---');
     return (
       <View style={{
         width: '100%',
-        alignItems: 'center',
-        borderTopColor: Color.gray,
-        borderTopWidth: .3
+        alignItems: 'center'
       }}>
         {
-          comments && comments.map((item, index) => (
+          comments?.length > 0 && comments.map((item, index) => (
             <View
               key={index}
               style={{
-                ...BasicStyles.standardWidth
+                width: '100%'
               }}>
               {this.renderHeader({ user: item.account, date: item.created_at_human }, false)}
-              {this.renderBody({ message: item.text })}
+              {this.renderComment({ message: item.text })}
             </View>
           ))
         }
-
-        {
-          user && (
-            <View style={{
-              width: '90%',
-              borderTopColor: Color.lightGray,
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginLeft: '5%',
-              marginRight: '5%'
-            }}>
-              {
-                user?.account_profile && user?.account_profile.url ? (
-                  <Image
-                    source={user && user.account_profile && user.account_profile.url ? { uri: Config.BACKEND_URL + user.account_profile.url } : require('assets/logo.png')}
-                    style={[BasicStyles.profileImageSize, {
-                      height: 30,
-                      width: 30,
-                      borderRadius: 100
-                    }]} />
-                ) : <FontAwesomeIcon
-                  icon={faUserCircle}
-                  size={30}
-                  style={{
-                    color: theme ? theme.primary : Color.primary
-                  }}
-                />
-              }
-              <TextInput style={{
-                width: '100%',
-                height: 50
-              }}
-                value={this.state.reply}
-                onSubmitEditing={() => {this.props.postReply(comments); this.setState({reply: null})}}
-                onChangeText={(value) => this.replyHandler(value)}
-                placeholder={'Type reply here'}
-              />
-            </View>
-          )
-        }
+        <View style={{
+          width: '90%',
+          borderTopColor: Color.lightGray,
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginLeft: '5%',
+          marginRight: '5%'
+        }}>
+          <TextInput style={{
+            width: '100%',
+            height: 50,
+            borderWidth: .25,
+            borderColor: Color.gray,
+            borderRadius: 100,
+            marginBottom: 15,
+            paddingLeft: 20
+          }}
+            value={this.state.reply}
+            onSubmitEditing={() => { this.props.postReply(comments); this.setState({ reply: null }) }}
+            onChangeText={(value) => this.replyHandler(value)}
+            placeholder={'Type here'}
+          />
+        </View>
       </View>
     )
   }
@@ -292,6 +437,7 @@ class PostCard extends Component {
 
   render() {
     const { data } = this.props;
+    const { isImageModal, imageModalUrl } = this.state;
     return (
       <View style={{
         ...BasicStyles.standardWidth,
@@ -300,12 +446,17 @@ class PostCard extends Component {
         borderWidth: .3,
         marginBottom: 10,
         marginTop: 10,
-        backgroundColor: Color.white
+        backgroundColor: 'white'
       }}>
         {this.renderHeader(data, true)}
         {this.renderBody(data)}
         {this.renderActions(data)}
         {this.renderComments(data.comments)}
+        <ImageModal
+          visible={isImageModal}
+          url={imageModalUrl}
+          action={() => this.setState({ isImageModal: false })}
+        ></ImageModal>
       </View>
     )
   }

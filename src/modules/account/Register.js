@@ -128,7 +128,6 @@ class Register extends Component {
         style={{ height: '100%' }}
       >
         <ScrollView
-          style={Style.ScrollView}
           showsVerticalScrollIndicator={false}>
           <View style={Style.MainContainer}>
             <Header params={"Sign Up"}></Header>
@@ -218,9 +217,7 @@ class Register extends Component {
             <View style={{
               width: '100%',
               alignItems: 'center',
-              marginBottom: '10%',
-              position: 'absolute',
-              bottom: 20
+              marginTop: '10%'
             }}>
               <Text style={{
                 color: 'white',
