@@ -180,17 +180,17 @@ class Register extends Component {
               }}
               placeholder={'Password'} />
 
-              <PasswordInputWithIconLeft
-                onTyping={(input) => this.setState({
-                  confirmPassword: input
-                })}
-                style={{
-                  width: '80%',
-                  borderColor: 'white',
-                  color: 'black'
-                }}
-                placeholder={'Confirm Password'}
-              />
+            <PasswordInputWithIconLeft
+              onTyping={(input) => this.setState({
+                confirmPassword: input
+              })}
+              style={{
+                width: '80%',
+                borderColor: 'white',
+                color: 'black'
+              }}
+              placeholder={'Confirm Password'}
+            />
 
             <Text
               onPress={() => this.redirect('forgotPasswordStack')}
@@ -203,16 +203,22 @@ class Register extends Component {
 
 
 
-            <Button content={
-              <View style={{ flex: 1, flexDirection: 'row', marginTop: 5 }}>
-                <Text style={{ color: 'white', fontSize: 15 }}>Sign Up</Text>
-                <FontAwesomeIcon color={'white'} icon={faArrowRight} style={{ marginLeft: 10, marginTop: 1 }} />
-              </View>
-            } styles={[BasicStyles.btnRound, {
-              marginTop: '5%',
-              marginLeft: '50%',
-              width: '50%'
-            }]} redirect={() => this.submit(null)} />
+            <Button
+              style={{
+                width: '40%',
+                height: 50,
+                backgroundColor: theme ? theme.secondary : Color.secondary,
+                alignSelf: 'flex-end',
+                marginTop: 20 
+              }}
+              content={
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: 'white', fontSize: 15 }}>Sign Up</Text>
+                  <FontAwesomeIcon color={'white'} icon={faArrowRight} style={{ marginLeft: 10, marginTop: 1 }} />
+                </View>
+              }
+              redirect={() => this.submit(null)}
+            />
 
             <View style={{
               width: '100%',

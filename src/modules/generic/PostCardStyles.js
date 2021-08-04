@@ -5,5 +5,13 @@ export default {
   image: {
     height: '100%',
     width: '100%'
+  },
+  fourImages: {
+    height: '50%',
+    width: '100%'
+  },
+  twoImages: {
+    height: '100%',
+    width: '50%'
   }
 };

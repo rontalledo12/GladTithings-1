@@ -36,6 +36,20 @@ export default {
       currentPage: 'Settings'
     },
     {
+      title: 'Community',
+      route: 'Community',
+      icon: faCog,
+      borderBottom: false,
+      currentPage: 'Community'
+    },
+    {
+      title: 'Subscription',
+      route: 'Subscription',
+      icon: faCog,
+      borderBottom: false,
+      currentPage: 'Subscription'
+    },
+    {
       title: 'Share Profile',
       route: 'share',
       icon: faShareSquare,

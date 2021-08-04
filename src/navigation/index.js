@@ -5,6 +5,8 @@ import Register from 'src/modules/account/Register';
 import ViewProfileStack from 'src/modules/viewProfile/Drawer'
 import ProfileStack from 'src/modules/profile/Drawer'
 import Welcome from 'src/modules/account/Landing'
+import CommunityStack from 'src/modules/community/Drawer'
+import SubscriptionStack from 'src/modules/community/Drawer'
 import Drawer from './Drawer';
 
 const WelcomeStack = createStackNavigator(
@@ -61,6 +63,8 @@ const PrimaryNav = createStackNavigator(
     drawerStack: {screen: Drawer},
     profileStack: {screen: ProfileStack},
     viewProfileStack: {screen: ViewProfileStack},
+    communityStack: {screen: CommunityStack},
+    subscriptionStack: {screen: SubscriptionStack}
   },
   {
     // Default config for all screens

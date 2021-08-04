@@ -108,14 +108,23 @@ class Landing extends Component {
             </View>
             <View style={{
               position: 'absolute',
-              bottom: 10
+              bottom: 10,
+              alignItems: 'center'
             }}>
-              <Button content={<Text style={{ color: 'white' }}>Get Started</Text>}
-                styles={[BasicStyles.btnRound, {
-                  marginTop: '20%',
-                  width: '100%',
-                  marginBottom: '20%'
-                }]} redirect={() => this.props.navigation.navigate('registerStack')} />
+              <Button
+              style={{
+                width: '70%',
+                height: 50,
+                backgroundColor: theme ? theme.secondary : Color.secondary,
+                marginBottom: '20%'
+              }}
+              content={
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: 'white', fontSize: 15 }}>Get Started</Text>
+                </View>
+              }
+              redirect={() => this.props.navigation.navigate('registerStack')}
+            />
                 <Text style={{
                 color: 'white',
                 fontSize: BasicStyles.standardFontSize + 2

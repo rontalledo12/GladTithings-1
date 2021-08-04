@@ -483,28 +483,25 @@ class Login extends Component {
               }}
             >Forgot Password?</Text>
 
-            <View style={{
-              marginBottom: '10%'
-            }}>
-              <Button content={
-                <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginTop: 5
-                }}>
+            <Button
+              style={{
+                width: '40%',
+                height: 50,
+                backgroundColor: theme ? theme.secondary : Color.secondary,
+                alignSelf: 'flex-end',
+                marginTop: 20
+              }}
+              content={
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                   <Text style={{ color: 'white', fontSize: 15 }}>Sign In</Text>
                   <FontAwesomeIcon color={'white'} icon={faArrowRight} style={{ marginLeft: 10, marginTop: 1 }} />
                 </View>
-              } styles={[BasicStyles.btnRound, {
-                marginTop: '5%',
-                marginLeft: '50%',
-                width: '50%'
-              }]}
-                redirect={() => {
-                  // this.submit()
-                  this.props.navigation.navigate('drawerStack');
-                }} />
-            </View>
+              }
+              redirect={() => {
+                // this.submit()
+                this.props.navigation.navigate('drawerStack');
+              }}
+            />
             <View style={{
               width: '100%',
               alignItems: 'center',

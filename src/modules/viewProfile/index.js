@@ -5,9 +5,6 @@ import { Routes, Color, Helper, BasicStyles } from 'common';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheckCircle, faEdit, faUserCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import Style from './Style';
-import CustomizedButton from 'modules/generic/CustomizedButton';
-import ImageCardWithUser from 'modules/generic/ImageCardWithUser';
-import Tab from 'modules/generic/TabOptions';
 import { connect } from 'react-redux';
 import Config from 'src/config.js';
 import _ from 'lodash';
@@ -107,15 +104,6 @@ class ViewProfile extends Component {
               width: '100%'
             }}>
             </View>}
-
-          </View>
-          <View style={{
-            marginTop: 25,
-            textAlign: 'center',
-            justifyContent: 'center'
-          }}>
-            {this.props.navigation.state?.params?.level === 1 ? <Tab level={1} choice={['SYNQT ACTIVITIES', 'CONNECTIONS']} onClick={this.choiceHandler}></Tab> :
-              <Tab level={2} choice={['CONNECTIONS']} onClick={this.choiceHandler}></Tab>}
           </View>
           {this.state.isLoading ? <Spinner mode="overlay" /> : null}
         </ScrollView>

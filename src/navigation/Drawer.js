@@ -7,6 +7,8 @@ import {BasicStyles } from 'common';
 import Homepage from 'modules/homepage';
 import Settings from 'modules/display';
 import Privacy from 'modules/privacy';
+import Community from 'modules/community';
+import Subscription from 'modules/subscriptions';
 import TermsAndConditions from 'modules/termsAndConditions';
 import Header from 'src/modules/generic/Header'
 
@@ -64,6 +66,22 @@ const _StackNavigator = createStackNavigator({
       ...BasicStyles.drawerHeader
     }),
   },
+  Community: {
+    screen: Community,
+    navigationOptions: ({navigation}) => ({
+      title: null,
+      headerLeft: <Header navigation={navigation} />,
+      ...BasicStyles.drawerHeader
+    }),
+  },
+  Subscription: {
+    screen: Subscription,
+    navigationOptions: ({navigation}) => ({
+      title: null,
+      headerLeft: <Header navigation={navigation} />,
+      ...BasicStyles.drawerHeader
+    }),
+  },
   TermsAndConditions: {
     screen: TermsAndConditions,
     navigationOptions: ({navigation}) => ({
@@ -103,6 +121,18 @@ const Drawer = createDrawerNavigator(
       },
     },
     Settings: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: '',
+      },
+    },
+    Community: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: '',
+      },
+    },
+    Subscription: {
       screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: '',

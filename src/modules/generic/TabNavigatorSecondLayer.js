@@ -3,6 +3,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationActions, StackActions} from 'react-navigation';
 import HomePage from 'modules/homepage/Stack';
+import Community from 'modules/community/Stack';
+import Subscription from 'modules/subscriptions/Stack';
 import DisplayStack from 'modules/display/Stack';
 import TermsAndConditions from 'modules/termsAndConditions/Stack'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -10,6 +12,7 @@ import { faHome, faBell, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Color } from 'common'
 import { Platform } from 'react-native';
 import Style from './TabNavigatorStyle';
+import subscriptions from '../subscriptions';
 
 
 const Tab = createBottomTabNavigator();
@@ -58,6 +61,44 @@ export default function TabNavigatorSecondLayer(props) {
           name="Settings"
           children={route => (
             <DisplayStack
+              {...route}
+              initialPage={props.navigation.state.routeName}
+              parentNav={props.navigation}
+            />
+          )}
+          options={{
+            tabBarIcon: () => 
+            <FontAwesomeIcon
+              icon={faBell}
+              size={30}
+              color={Color.gray}
+              style={Style.footerIcon}
+              />,
+          }}
+        />
+        <Tab.Screen
+          name="Community"
+          children={route => (
+            <Community
+              {...route}
+              initialPage={props.navigation.state.routeName}
+              parentNav={props.navigation}
+            />
+          )}
+          options={{
+            tabBarIcon: () => 
+            <FontAwesomeIcon
+              icon={faBell}
+              size={30}
+              color={Color.gray}
+              style={Style.footerIcon}
+              />,
+          }}
+        />
+        <Tab.Screen
+          name="Subscription"
+          children={route => (
+            <Subscriptions
               {...route}
               initialPage={props.navigation.state.routeName}
               parentNav={props.navigation}
