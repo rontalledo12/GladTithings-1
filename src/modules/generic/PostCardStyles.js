@@ -4,7 +4,8 @@ const width = Math.round(Dimensions.get('window').width);
 export default {
   image: {
     height: '100%',
-    width: '100%'
+    width: '100%',
+    resizeMode: 'stretch'
   },
   fourImages: {
     height: '50%',

@@ -1,6 +1,6 @@
 import React from 'react';
 import Color from './Color.js';
-import { faHome, faEnvelope, faUsers, faPalette, faShieldAlt, faCopy, faShareAltSquare, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faShieldAlt, faCopy, faCog, faBell, faChurch } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faShareSquare } from '@fortawesome/free-regular-svg-icons';
 
 export default {
@@ -38,14 +38,14 @@ export default {
     {
       title: 'Community',
       route: 'communityStack',
-      icon: faCog,
+      icon: faChurch,
       borderBottom: false,
       currentPage: 'Community'
     },
     {
       title: 'Subscription',
       route: 'subscriptionStack',
-      icon: faCog,
+      icon: faBell,
       borderBottom: false,
       currentPage: 'Subscription'
     },

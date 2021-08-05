@@ -20,7 +20,6 @@ class Cards extends Component {
       <View style={{
         flexDirection: 'row',
         borderWidth: 1,
-        marginTop: 10,
         marginBottom: 10,
         borderRadius: 20,
         borderColor: Color.gray,
