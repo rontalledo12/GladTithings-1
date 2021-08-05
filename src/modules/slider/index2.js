@@ -37,7 +37,6 @@ class Slider2 extends Component {
   }
 
   navigate = (route) => {
-    console.log('--');
     this.props.navigation.toggleDrawer();
     const navigateAction = NavigationActions.navigate({
       routeName: 'drawerStack',
