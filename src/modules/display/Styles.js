@@ -1,29 +1,31 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Color } from 'common';
 
 const styles = StyleSheet.create({
   Circle: {
-    height:30,
+    height: 30,
     width: 30,
     borderRadius: 15,
   },
   SettingTileContainer: {
-    // height: 130,
+    height: 90,
     width: '100%',
+    backgroundColor: Color.white,
+    borderRadius: 10,
+    borderWidth: .25,
+    borderColor: Color.gray,
     flexDirection: 'row',
-    paddingHorizontal: '3%',
-    paddingVertical: '2%',
-    borderBottomWidth: 1,
-    borderColor: Color.lightGray,
+    padding: 15,
+    marginBottom: 7.5,
+    marginTop: 7.5
   },
   ThemeDetailsContainer: {
-    width: '70%',
+    width: '90%',
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
   ThemeTitleContainer: {},
   ThemeTitleTextStyle: {
-    fontSize: 15,
     fontFamily: 'Poppins-SemiBold',
   },
   ThemeColorsContainer: {},
@@ -39,10 +41,7 @@ const styles = StyleSheet.create({
   },
   IconContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingLeft: '17%',
-    paddingRight: '3%',
-    marginTop: 10
+    width: '10%'
   },
 });
 

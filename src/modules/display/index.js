@@ -91,7 +91,8 @@ class Display extends Component {
     return (
       <View style={{
         flex: 1,
-        backgroundColor: Color.containerBackground
+        backgroundColor: Color.containerBackground,
+        padding: 15
       }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
