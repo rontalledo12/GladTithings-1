@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { BasicStyles } from 'common';
+import { faCheck, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { BasicStyles, Color } from 'common';
 import styles from 'modules/display/Styles.js';
 import ColorCircle from 'modules/display/ColorCircle';
+import { connect } from 'react-redux';
 
 class ThemeSettingTile extends Component {
   constructor(props) {
@@ -14,9 +15,7 @@ class ThemeSettingTile extends Component {
   displayColorCirles = () => {
     return this.props.circles.map((color, index) => {
       return (
-        <View style={[styles.ColorContainer, {
-          marginTop: 10
-        }]} key={index}>
+        <View style={styles.ColorContainer} key={index}>
           <ColorCircle color={color} />
         </View>
       );
@@ -24,6 +23,7 @@ class ThemeSettingTile extends Component {
   };
 
   render() {
+    const { theme } = this.props.state;
     return (
       <TouchableOpacity
         style={styles.SettingTileContainer}
@@ -38,19 +38,19 @@ class ThemeSettingTile extends Component {
               {this.props.themeTitle}
             </Text>
           </View>
-          <View style={styles.ThemeColorsContainer}>
+          {/* <View style={styles.ThemeColorsContainer}>
             <Text style={[
               styles.ThemeColorsTextStyle, { fontSize: BasicStyles.standardFontSize }]}>{this.props.colors}</Text>
-          </View>
+          </View> */}
           <View style={styles.ColorsContainer}>
             {this.displayColorCirles()}
           </View>
         </View>
         <View style={styles.IconContainer}>
           <FontAwesomeIcon
-            icon={faCheck}
-            size={20}
-            style={{ color: this.props.selectedTile ? '#3DBB85' : '#EEEDFD', }}
+            icon={faCheckCircle}
+            size={25}
+            style={{ color: this.props.selectedTile ? (theme ? theme.primary : Color.primary ) : Color.danger }}
           />
         </View>
       </TouchableOpacity>
@@ -58,4 +58,11 @@ class ThemeSettingTile extends Component {
   }
 }
 
-export default ThemeSettingTile;
+const mapStateToProps = state => ({ state: state });
+const mapDispatchToProps = dispatch => {
+  const { actions } = require('@redux');
+  return {};
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(ThemeSettingTile);
