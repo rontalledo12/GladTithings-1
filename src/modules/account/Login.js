@@ -164,16 +164,6 @@ class Login extends Component {
     });
   }
 
-
-  test = () => {
-    if (config.TEST == true) {
-      const { setLayer } = this.props;
-      setLayer(0)
-      this.props.navigation.navigate('drawerStack');
-      return true;
-    }
-  }
-
   redirect = (route) => {
     this.props.navigation.navigate(route);
   }
@@ -297,7 +287,6 @@ class Login extends Component {
   }
 
   login = () => {
-    this.test();
     console.log('STATE TOKEN', this.state.token);
     const { login } = this.props;
     if (this.state.token != null) {
@@ -372,12 +361,12 @@ class Login extends Component {
   }
 
   submit() {
-    this.test();
     const { username, password } = this.state;
     const { login } = this.props;
     if ((username != null && username != '') && (password != null && password != '')) {
       this.setState({ isLoading: true, error: 0 });
       // Login
+      console.log('--');
       Api.authenticate(username, password, (response) => {
         if (response.error) {
           this.setState({ error: 2, isLoading: false });
@@ -402,16 +391,27 @@ class Login extends Component {
                 this.setState({ error: 2 })
               }
             }, error => {
-              this.setState({ isResponseError: true })
+              console.log(error, 'ERROR');
+              this.setState({
+                isResponseError: true,
+                isLoading: false
+              })
             })
 
           }, error => {
-            this.setState({ isResponseError: true })
+            console.log(error, 'ERROR');
+            this.setState({
+              isResponseError: true,
+              isLoading: false
+            })
           })
         }
       }, error => {
         console.log('error', error)
-        this.setState({ isResponseError: true })
+        this.setState({
+          isResponseError: true,
+          isLoading: false
+        })
       })
       // this.props.navigation.navigate('drawerStack');
     } else {
@@ -437,7 +437,6 @@ class Login extends Component {
           <View style={{
             flex: 1,
             alignItems: 'center',
-            height: height,
             paddingLeft: 20,
             paddingRight: 20
           }}>
@@ -498,16 +497,15 @@ class Login extends Component {
                 </View>
               }
               redirect={() => {
-                // this.submit()
-                this.props.navigation.navigate('drawerStack');
+                this.submit()
+                // this.props.navigation.navigate('drawerStack');
               }}
             />
             <View style={{
               width: '100%',
               alignItems: 'center',
               marginBottom: '10%',
-              position: 'absolute',
-              bottom: 5
+              marginTop: '10%'
             }}>
               <Text style={{
                 color: 'white',
