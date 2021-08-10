@@ -140,7 +140,7 @@ class Slider2 extends Component {
           </View>
           {
             user !== null ? (
-              <View style={{ marginTop: '7%', position: 'absolute', right: 0, width: '75%' }}>
+              <View style={{ marginTop: '7%', position: 'absolute', right: 10, width: '75%' }}>
                 <View
                   style={{ flex: 1,
                     flexDirection: 'row',
@@ -212,7 +212,7 @@ class Slider2 extends Component {
                     <View style={styles.inActiveDrawer}>
                       <FontAwesomeIcon style={{
                         padding: 10,
-                        color: Color.white
+                        color: Color.secondary
                       }} icon={item.icon} size={BasicStyles.iconSize}></FontAwesomeIcon>
                       <Text style={styles.BottomText}>{item.title}</Text>
                     </View>
@@ -228,7 +228,7 @@ class Slider2 extends Component {
             <View style={styles.inActiveDrawer}>
               <FontAwesomeIcon style={{
                 padding: 10,
-                color: Color.white,
+                color: Color.secondary,
               }} icon={faCopy} size={BasicStyles.iconSize}></FontAwesomeIcon>
               <Text style={styles.BottomText}>Terms and Conditions</Text>
             </View>
@@ -238,7 +238,7 @@ class Slider2 extends Component {
             <View style={styles.inActiveDrawer}>
               <FontAwesomeIcon style={{
                 padding: 10,
-                color: Color.white
+                color: Color.secondary
               }} icon={faShieldAlt} size={BasicStyles.iconSize}></FontAwesomeIcon>
               <Text style={styles.BottomText}>Privacy Policy</Text>
             </View>
@@ -246,7 +246,7 @@ class Slider2 extends Component {
           <TouchableOpacity onPress={() => { this.logoutAction() }} style={{ flexDirection: 'row-reverse', paddingTop: 10 }}>
             <FontAwesomeIcon style={[
               styles.navItemStyle, {
-                color: Color.white,
+                color: Color.secondary,
                 marginRight: 10,
                 fontSize: 16
               }]} icon={faSignOutAlt} size={BasicStyles.iconSize}></FontAwesomeIcon>

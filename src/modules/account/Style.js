@@ -6,7 +6,6 @@ export default {
   MainContainer: {
     flex: 1,
     alignItems: 'center',
-    height: height,
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 150
@@ -30,11 +29,11 @@ export default {
     marginRight: '5%'
   },
   messageContainer: {
-    height: 50,
     width: width - 40,
     alignItems: 'center',
     justifyContent: 'center',
-    color: Color.danger
+    color: Color.danger,
+    marginBottom: 10
   },
   messageText: {
     color: Color.danger
