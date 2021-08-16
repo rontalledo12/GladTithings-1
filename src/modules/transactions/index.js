@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { Color } from 'common';
+import Footer from 'modules/generic/Footer';
 import { connect } from 'react-redux';
 import CardsWithIcon from '../generic/CardsWithIcon';
 import InputFieldWithIcon from '../generic/InputFieldWithIcon';
-import BalanceCard from 'modules/generic/BalanceCard.js';
+import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import IncrementButton from 'components/Form/Button';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import Subscription from 'modules/generic/Subscriptions.js'
 
 const width = Math.round(Dimensions.get('window').width)
 const height = Math.round(Dimensions.get('window').height)
-
 const data = [
   {
     id: 0,
@@ -57,22 +55,15 @@ const data = [
   }
 ]
 
-const balance = {
-  current_balance: 10000,
-  currency: 'USD',
-  available_balance: 5000
-}
-
-class Dashboard extends Component {
+class Transactions extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      input: null
+    this.state = {
     }
   }
 
   render() {
-    const { theme } = this.props.state;
+    const { theme, user } = this.props.state;
     return (
       <View style={{
         height: height,
@@ -80,69 +71,10 @@ class Dashboard extends Component {
       }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{
-            padding: 15
+            paddingLeft: 20,
+            paddingRight: 20,
+            minHeight: height + (height * 0.5)
           }}>
-            
-
-            {
-              balance && (
-                <BalanceCard data={balance}/>
-              )
-            }
-
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 20,
-              marginBottom: 20
-            }}>
-              <IncrementButton style={{
-                backgroundColor: Color.secondary,
-                width: '40%'
-              }}
-              onClick={() => {
-                this.props.navigation.navigate('depositStack')
-              }}
-              title={'Deposit'}
-              />
-
-              <IncrementButton style={{
-                backgroundColor: Color.secondary,
-                width: '40%'
-              }}
-              onClick={() => {
-                this.props.navigation.navigate('withdrawStack')
-              }}
-              title={'Withdraw'}
-              />
-            </View>
-
-            <Subscription />
-
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 10,
-              marginBottom: 10
-            }}>
-              <Text style={{
-                fontWeight: 'bold',
-                color: Color.primary
-              }}>Donations</Text>
-
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate('transactionsStack')
-                }}
-                >
-
-                <Text style={{
-                  fontWeight: 'bold',
-                }}>View more</Text>
-
-              </TouchableOpacity>
-            </View>
-
             {
               data.map((item, index) => {
                 return (
@@ -159,8 +91,8 @@ class Dashboard extends Component {
                 )
               })
             }
-
           </View>
+          
         </ScrollView>
       </View>
     );
@@ -170,4 +102,4 @@ const mapStateToProps = state => ({ state: state });
 
 export default connect(
   mapStateToProps
-)(Dashboard);
+)(Transactions);

@@ -12,6 +12,8 @@ import PrivacyStack from 'src/modules/privacy/Drawer';
 import TermsAndConditionsStack from 'src/modules/termsAndConditions/Drawer';
 import DisplayStack from 'src/modules/display/DisplayDrawer';
 import AccountSettingStack from 'src/modules/accountSettings/Drawer';
+import TransactionsStack from 'src/modules/transactions/Drawer';
+import PageMessageStack from 'src/modules/messages/Drawer';
 import Drawer from './Drawer';
 
 const WelcomeStack = createStackNavigator(
@@ -74,7 +76,9 @@ const PrimaryNav = createStackNavigator(
     termsAndConditionStack: {screen: TermsAndConditionsStack},
     privacyStack: {screen: PrivacyStack},
     displayStack: {screen: DisplayStack},
-    accountSettingsStack: { screen: AccountSettingStack}
+    accountSettingsStack: { screen: AccountSettingStack},
+    transactionsStack: {screen: TransactionsStack},
+    pageMessageStack: { screen: PageMessageStack}
   },
   {
     // Default config for all screens

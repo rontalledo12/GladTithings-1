@@ -54,7 +54,7 @@ class TextInputWithIcon extends Component{
             value={this.state.input}
             placeholder={this.props.placeholder}
             placeholderTextColor={'#d1d1d1'}
-            disable={this.props.disabled ? this.props.disabled : false}
+            disable={this.props.disable ? this.props.disable : false}
             secureTextEntry={this.props.secureTextEntry ? this.props.secureTextEntry : false}
           />
         </View>

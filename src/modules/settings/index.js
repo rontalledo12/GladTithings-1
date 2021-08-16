@@ -40,6 +40,11 @@ const data = [
     description: "Change your theme colors here",
     route: 'displayStack'
   },
+  {
+    title: 'Error Message',
+    description: "Change your theme colors here",
+    route: 'pageMessageStack'
+  },
 ]
 
 class Settings extends Component {
@@ -59,7 +64,9 @@ class Settings extends Component {
       }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{
-            padding: 15
+            paddingLeft: 20,
+            paddingRight: 20,
+            minHeight: height + (height * 0.5)
           }}>
 
             {
@@ -67,7 +74,15 @@ class Settings extends Component {
                 return (
                   <CardsWithIcon
                     redirect={() => {
-                      this.props.navigation.navigate(item.route)
+                      if(item.route !== 'pageMessageStack'){
+                        this.props.navigation.navigate(item.route)
+                      }else{
+                        this.props.navigation.navigate(item.route, {
+                          title: 'Success Page',
+                          message: 'Transaction was successful',
+                          payload: 'error'
+                        })
+                      }
                     }}
                     version={2}
                     title={item.title}
