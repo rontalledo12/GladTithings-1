@@ -15,6 +15,7 @@ import AccountSettingStack from 'src/modules/accountSettings/Drawer';
 import TransactionsStack from 'src/modules/transactions/Drawer';
 import PageMessageStack from 'src/modules/messages/Drawer';
 import DepositStack from 'src/modules/deposit/Drawer';
+import NotificationSettingsStack from 'src/modules/notificationSettings/Drawer';
 import Drawer from './Drawer';
 
 const WelcomeStack = createStackNavigator(
@@ -80,7 +81,8 @@ const PrimaryNav = createStackNavigator(
     accountSettingsStack: { screen: AccountSettingStack},
     transactionsStack: {screen: TransactionsStack},
     pageMessageStack: { screen: PageMessageStack},
-    depositStack: { screen: DepositStack}
+    depositStack: { screen: DepositStack},
+    notificationSettingsStack: { screen: NotificationSettingsStack}
   },
   {
     // Default config for all screens

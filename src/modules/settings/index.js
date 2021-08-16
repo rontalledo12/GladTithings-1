@@ -28,7 +28,7 @@ const data = [
   {
     title: 'Notification Settings',
     description: "Receives notification to any of the ff.",
-    route: 'notificationsSettingsStack'
+    route: 'notificationSettingsStack'
   },
   {
     title: 'About Glad Tithings',
