@@ -7,6 +7,7 @@ import InputFieldWithIcon from '../generic/InputFieldWithIcon';
 import BalanceCard from 'modules/generic/BalanceCard.js';
 import IncrementButton from 'components/Form/Button';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Subscription from 'modules/generic/Subscriptions.js'
 
 const width = Math.round(Dimensions.get('window').width)
 const height = Math.round(Dimensions.get('window').height)
@@ -115,6 +116,8 @@ class Dashboard extends Component {
               title={'Withdraw'}
               />
             </View>
+
+            <Subscription />
 
             <View style={{
               flexDirection: 'row',
