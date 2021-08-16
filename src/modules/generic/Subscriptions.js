@@ -54,7 +54,7 @@ class Subscriptions extends Component {
                     <Button
                       title={'Subscribe'}
                       onClick={() => {
-                        this.props.navigation.navigate('partnerPlansStack')
+                        this.props.navigation.navigate('subscibeStack')
                       }}
                       style={{
                         width: '50%',
