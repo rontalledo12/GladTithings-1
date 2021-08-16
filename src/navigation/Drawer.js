@@ -6,7 +6,7 @@ import Slider2 from 'modules/slider/index2';
 import {BasicStyles } from 'common';
 import Homepage from 'modules/homepage';
 import Dashboard from 'modules/dashboard';
-import Settings from 'modules/display';
+import Settings from 'modules/settings';
 import Privacy from 'modules/privacy';
 import Community from 'modules/community';
 import TermsAndConditions from 'modules/termsAndConditions';

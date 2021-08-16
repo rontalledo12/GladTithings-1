@@ -41,24 +41,33 @@ class CardsWithIcon extends Component {
   versionTwo = () => {
     const { theme } = this.props.state;
     return (
-      <View style={[Styles.cardContainer, {height: 90}]}>
-        <View style={{width: '90%'}}>
-          <Text style={{ fontFamily: 'Poppins-SemiBold' }}>{this.props.title}</Text>
-          <Text style={{ fontSize: 13 }}>{this.props.description}</Text>
-        </View>
+      <TouchableOpacity
+        onPress={() => {
+          this.props.redirect()
+        }}
+        style={[Styles.cardContainer, {height: 90}]}>
         <View style={{
-          width: '10%',
-          alignItems: 'center'
+          width: '100%',
+          flexDirection: 'row'
         }}>
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            size={25}
-            style={{
-              color: theme ? theme.primary : Color.primary
-            }}
-          />
+          <View style={{width: '90%'}}>
+            <Text style={{ fontFamily: 'Poppins-SemiBold' }}>{this.props.title}</Text>
+            <Text style={{ fontSize: 13 }}>{this.props.description}</Text>
+          </View>
+          <View style={{
+            width: '10%',
+            alignItems: 'center'
+          }}>
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              size={25}
+              style={{
+                color: theme ? theme.primary : Color.primary
+              }}
+            />
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 

@@ -100,7 +100,6 @@ class Subcriptions extends Component {
             }
           </View>
         </ScrollView>
-        <Footer layer={0} {...this.props} />
       </View>
     );
   }

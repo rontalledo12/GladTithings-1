@@ -36,8 +36,8 @@ export default {
       currentPage: 'Dashboard'
     },
     {
-      title: 'Theme Settings',
-      route: 'displayStack',
+      title: 'Settings',
+      route: 'Settings',
       icon: faCog,
       borderBottom: false,
       currentPage: 'Settings'
