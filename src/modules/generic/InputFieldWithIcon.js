@@ -25,26 +25,39 @@ class TextInputWithIcon extends Component{
   render () {
     const { theme } = this.props.state;
     return (
-      <View style={{
-        flexDirection: 'row',
-        ...BasicStyles.standardFormControl,
-        ...this.props.style,
-        alignItems: 'center'
-        }}>
-        <FontAwesomeIcon style={{
-          marginLeft: 10,
-          marginRight: 10
-        }}
-          icon={this.props.icon}
-          size={20}
-          color={Color.primary}
-        />
-        <TextInput
-          onChangeText={(input) => this.setInput(input)}
-          value={this.state.input}
-          placeholder={this.props.placeholder}
-          placeholderTextColor={'#d1d1d1'}
-        />
+      <View>
+        {
+          this.props.label && (
+            <Text style={{
+              ...this.props.labelStyle,
+              paddingTop: 20,
+              paddingBottom: 20
+            }}>{this.props.label}</Text>
+          )
+        }
+        <View style={{
+          flexDirection: 'row',
+          ...BasicStyles.standardFormControl,
+          ...this.props.style,
+          alignItems: 'center'
+          }}>
+          <FontAwesomeIcon style={{
+            marginLeft: 10,
+            marginRight: 10
+          }}
+            icon={this.props.icon}
+            size={20}
+            color={Color.primary}
+          />
+          <TextInput
+            onChangeText={(input) => this.setInput(input)}
+            value={this.state.input}
+            placeholder={this.props.placeholder}
+            placeholderTextColor={'#d1d1d1'}
+            disable={this.props.disabled ? this.props.disabled : false}
+            secureTextEntry={this.props.secureTextEntry ? this.props.secureTextEntry : false}
+          />
+        </View>
       </View>
     );
   }
