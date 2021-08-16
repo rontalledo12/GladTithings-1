@@ -1,6 +1,6 @@
 import React from 'react';
 import Color from './Color.js';
-import { faHome, faShieldAlt, faCopy, faCog, faBell, faChurch } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faShieldAlt, faCopy, faCog, faBell, faChurch, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faShareSquare } from '@fortawesome/free-regular-svg-icons';
 
 export default {
@@ -23,10 +23,17 @@ export default {
   DrawerMenu: [
     {
       title: 'Homepage',
-      route: 'drawerStack',
+      route: 'Homepage',
       icon: faHome,
       borderBottom: false,
       currentPage: 'drawerStack'
+    },
+    {
+      title: 'Dashboard',
+      route: 'Dashboard',
+      icon: faTachometerAlt,
+      borderBottom: false,
+      currentPage: 'Dashboard'
     },
     {
       title: 'Theme Settings',

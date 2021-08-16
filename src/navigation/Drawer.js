@@ -5,6 +5,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Slider2 from 'modules/slider/index2';
 import {BasicStyles } from 'common';
 import Homepage from 'modules/homepage';
+import Dashboard from 'modules/dashboard';
 import Settings from 'modules/display';
 import Privacy from 'modules/privacy';
 import Community from 'modules/community';
@@ -58,6 +59,14 @@ const _StackNavigator = createStackNavigator({
       ...BasicStyles.drawerHeader1
     }),
   },
+  Dashboard: {
+    screen: Dashboard,
+    navigationOptions: ({navigation}) => ({
+      title: null,
+      headerLeft: <Header navigation={navigation} />,
+      ...BasicStyles.drawerHeader1
+    }),
+  },
   Settings: {
     screen: Settings,
     navigationOptions: ({navigation}) => ({
@@ -103,6 +112,12 @@ const _StackNavigator = createStackNavigator({
 const Drawer = createDrawerNavigator(
   {
     Homepage: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: '',
+      },
+    },
+    Dashboard: {
       screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: '',

@@ -207,7 +207,7 @@ class Slider2 extends Component {
                   ]}
                     key={index}
                     onPress={() => 
-                      this.navigateToScreen(item.route)
+                      this.navigate(item.route)
                     }>
                     <View style={styles.inActiveDrawer}>
                       <FontAwesomeIcon style={{
