@@ -8,25 +8,20 @@ const height = Math.round(Dimensions.get('window').height);
 
 const dummyThemeData = [
   {
+    title: 'Test Mode 1',
+    details: 'Add description here',
+    colors: ['#4CCBA6', '#000000'],
+  },
+  {
     title: 'Test Mode',
     details: 'Add description here',
-    colors: ['#5842D7', '#FFCC00', '#4CCBA6', '#F88BFF'],
+    colors: ['#5842D7', '#000000'],
   },
   {
     title: 'Test Mode 1',
     details: 'Add description here',
-    colors: ['#4CCBA6', '#FFCC00', '#5842D7', '#F88BFF'],
+    colors: ['#000000', '#4CCBA6'],
   },
-  {
-    title: 'Test Mode 2',
-    details: 'Add description here',
-    colors: ['#FFCC00', '#4CCBA6', '#5842D7', '#F88BFF'],
-  },
-  {
-    title: 'Test Mode 2',
-    details: 'Add description here',
-    colors: ['#F88BFF', '#4CCBA6', '#5842D7', '#FFCC00'],
-  }
 ];
 class Display extends Component {
   constructor(props) {
@@ -49,12 +44,10 @@ class Display extends Component {
     let _theme = dummyThemeData[index].colors
     const {setTheme} = this.props;
     let temGrad = []
-    if(_theme[0] === '#4CCBA6'){
+    if(_theme[0] === '#4CCBA6' || _theme[0] === '#000000'){
       temGrad =['#8ae6cc', '#2bb58d', '#0ead7f']
-    }else if (_theme[0] === '#FFCC00'){
-      temGrad =['#ffeb96', '#FFCC00', '#ffbb00']
-    }else if(_theme[0] === '#F88BFF'){
-      temGrad =['#eb97f0', '#eb97f0', '#f22bff']
+    }else if(_theme[0] === '#5842D7'){
+      temGrad =['#584fff', '#5842D7', '#5842D7']
     }else{
       temGrad =['#9276E6', '#9276E6', '#5741D7']
     }
@@ -109,8 +102,7 @@ class Display extends Component {
             {this.displayThemeTiles()}
           </View>
         </ScrollView>
-        
-        <Footer layer={1} {...this.props}/>
+      
       </View>
     )
   }

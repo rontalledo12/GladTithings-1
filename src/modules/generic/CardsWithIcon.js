@@ -74,32 +74,37 @@ class CardsWithIcon extends Component {
   versionThree = () => {
     const { theme } = this.props.state;
     return (
-      <View style={[
-        Styles.cardContainer, {height: 80}]}>
+      <View
+        style={{
+          ...Styles.cardContainer,
+          height: 80,
+          ...this.props.style
+        }}
+        >
         <View style={{
-        width: '15%',
-        justifyContent: 'center'
-      }}>
-        <FontAwesomeIcon
-          icon={faChurch}
-          size={35}
-          style={{color: Color.secondary}}
-        />
+          width: '15%',
+          justifyContent: 'center'
+        }}>
+          <FontAwesomeIcon
+            icon={faChurch}
+            size={35}
+            style={{color: Color.secondary}}
+          />
+        </View>
+        <View style={{width: '60%', justifyContent: 'center'}}>
+          <Text style={{ fontFamily: 'Poppins-SemiBold' }}>{this.props.title}</Text>
+          <Text style={{ fontSize: 13 }}>{this.props.date}</Text>
+        </View>
+        <View style={{
+          width: '25%',
+          alignItems: 'center'
+        }}>
+          <Text style={{
+            color: theme ? theme.primary : Color.primary,
+            fontFamily: 'Poppins-SemiBold'
+          }}>{this.props.amount}</Text>
+        </View>
       </View>
-      <View style={{width: '60%', justifyContent: 'center'}}>
-        <Text style={{ fontFamily: 'Poppins-SemiBold' }}>{this.props.title}</Text>
-        <Text style={{ fontSize: 13 }}>{this.props.date}</Text>
-      </View>
-      <View style={{
-        width: '25%',
-        alignItems: 'center'
-      }}>
-        <Text style={{
-          color: theme ? theme.primary : Color.primary,
-          fontFamily: 'Poppins-SemiBold'
-        }}>{this.props.amount}</Text>
-      </View>
-    </View>
     )
   }
 

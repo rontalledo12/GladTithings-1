@@ -45,6 +45,7 @@ const TermsAndConditionsStack = createStackNavigator({
     screen: TermsAndConditions,
     navigationOptions: ({navigation}) => ({
       title: 'Terms And Conditions',
+      drawerLabel: 'Terms And Conditions',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
       ...BasicStyles.headerDrawerStyle
     }),

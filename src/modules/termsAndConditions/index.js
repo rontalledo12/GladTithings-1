@@ -44,7 +44,6 @@ class TermsAndConditions extends Component {
             </View>
           </View>
         </ScrollView>
-        <Footer layer={1} {...this.props}/>
       </View>
     );
   }

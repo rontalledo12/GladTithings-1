@@ -155,6 +155,9 @@ class Dashboard extends Component {
                     description={item.description}
                     date={item.date}
                     amount={item.amount}
+                    style={{
+                      marginBottom: index == (data.length - 1) ? height * 0.5 : 0
+                    }}
                   />
                 )
               })
