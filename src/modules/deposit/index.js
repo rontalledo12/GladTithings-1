@@ -7,6 +7,7 @@ import CardsWithIcon from '../generic/CardsWithIcon';
 import InputFieldWithIcon from '../generic/InputFieldWithIcon';
 import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import IncrementButton from 'components/Form/Button';
+import StripeCard from 'components/Payments/Stripe'
 
 const width = Math.round(Dimensions.get('window').width)
 const height = Math.round(Dimensions.get('window').height)
@@ -15,11 +16,13 @@ class Transactions extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      method: 'paypal'
     }
   }
 
   render() {
     const { theme, user } = this.props.state;
+    const { method } = this.state;
     return (
       <View style={{
         height: height,
@@ -55,7 +58,9 @@ class Transactions extends Component {
                   fontWeight: 'bold'
                 }}
                 onClick={() => {
-                  this.props.navigation.navigate('Dashboard')
+                  this.setState({
+                    method: 'paypal'
+                  })
                 }}
                 title={'PayPal'}
               />
@@ -73,12 +78,20 @@ class Transactions extends Component {
                   color: Color.gray
                 }}
                 onClick={() => {
-                  this.props.navigation.navigate('Dashboard')
+                  this.setState({
+                    method: 'stripe'
+                  })
                 }}
                 title={'CC / DC'}
               />
             </View>
           </View>
+
+          {
+            method === 'stripe' && (
+              <StripeCard />
+            )
+          }
 
           </View>
           
