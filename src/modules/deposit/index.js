@@ -7,7 +7,7 @@ import CardsWithIcon from '../generic/CardsWithIcon';
 import InputFieldWithIcon from '../generic/InputFieldWithIcon';
 import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import IncrementButton from 'components/Form/Button';
-import StripeCard from 'components/Payments/Stripe'
+// import StripeCard from 'components/Payments/Stripe'
 
 const width = Math.round(Dimensions.get('window').width)
 const height = Math.round(Dimensions.get('window').height)
@@ -87,11 +87,11 @@ class Transactions extends Component {
             </View>
           </View>
 
-          {
+          {/*
             method === 'stripe' && (
               <StripeCard />
             )
-          }
+          */}
 
           </View>
           
