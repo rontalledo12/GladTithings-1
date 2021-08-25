@@ -30,8 +30,9 @@ class TextInputWithIcon extends Component{
           this.props.label && (
             <Text style={{
               ...this.props.labelStyle,
+              fontFamily: this.props.profile ? 'Poppins-SemiBold' : 'normal',
               paddingTop: 20,
-              paddingBottom: 20
+              paddingBottom: this.props.profile ? 10 : 20
             }}>{this.props.label}</Text>
           )
         }

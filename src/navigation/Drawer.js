@@ -7,6 +7,7 @@ import {BasicStyles } from 'common';
 import Homepage from 'modules/homepage';
 import Dashboard from 'modules/dashboard';
 import Settings from 'modules/settings';
+import Donations from 'modules/donations';
 import Privacy from 'modules/privacy';
 import Community from 'modules/community';
 import TermsAndConditions from 'modules/termsAndConditions';
@@ -75,6 +76,14 @@ const _StackNavigator = createStackNavigator({
       ...BasicStyles.drawerHeader
     }),
   },
+  Donations: {
+    screen: Donations,
+    navigationOptions: ({navigation}) => ({
+      title: null,
+      headerLeft: <Header navigation={navigation} />,
+      ...BasicStyles.drawerHeader
+    }),
+  },
   Community: {
     screen: Community,
     navigationOptions: ({navigation}) => ({
@@ -136,6 +145,12 @@ const Drawer = createDrawerNavigator(
       },
     },
     Settings: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: '',
+      },
+    },
+    Donations: {
       screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: '',

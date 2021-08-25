@@ -43,26 +43,33 @@ export default {
       currentPage: 'Settings'
     },
     {
+      title: 'Donations',
+      route: 'Donations',
+      icon: faCog,
+      borderBottom: false,
+      currentPage: 'Donations'
+    },
+    {
       title: 'Community',
       route: 'communityStack',
       icon: faChurch,
       borderBottom: false,
       currentPage: 'Community'
-    },
-    {
-      title: 'Subscription',
-      route: 'subscriptionStack',
-      icon: faBell,
-      borderBottom: false,
-      currentPage: 'Subscription'
-    },
-    {
-      title: 'Share Profile',
-      route: 'share',
-      icon: faShareSquare,
-      borderBottom: true,
-      currentPage: 'share'
     }
+    // {
+    //   title: 'Subscription',
+    //   route: 'subscriptionStack',
+    //   icon: faBell,
+    //   borderBottom: false,
+    //   currentPage: 'Subscription'
+    // },
+    // {
+    //   title: 'Share Profile',
+    //   route: 'share',
+    //   icon: faShareSquare,
+    //   borderBottom: true,
+    //   currentPage: 'share'
+    // }
   ],
   DrawerMenu1: [{
     title: 'Terms & Conditions',

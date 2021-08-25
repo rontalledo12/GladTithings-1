@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity, TextInput, ScrollView, Alert, Dimensions } from 'react-native';
 import { Routes, Color, Helper, BasicStyles } from 'common';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCheckCircle, faEdit, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faMapMarkerAlt, faEnvelope, faMobileAlt, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import Style from './Style';
 import CustomizedButton from 'modules/generic/CustomizedButton';
 import { connect } from 'react-redux';
 import Api from 'services/api/index.js';
 import { Spinner, ImageUpload } from 'components';
 import Config from 'src/config.js';
+import InputFieldWithIcon from '../generic/InputFieldWithIcon';
 
 const height = Math.round(Dimensions.get('window').height);
 
@@ -23,7 +24,9 @@ class Profile extends Component {
       isImageUpload: false,
       password: null,
       confirmPassword: null,
-      email: null
+      email: null,
+      isEdit: false,
+      cellularNumber: null
     }
   }
 
@@ -60,11 +63,13 @@ class Profile extends Component {
       this.setState({ isLoading: false })
       if (response.data.length > 0) {
         let data = response.data[0]
+        console.log(data, '---');
         this.setState({
           id: data.id,
           firstName: data.first_name,
           lastName: data.last_name,
-          email: user.email
+          email: user.email,
+          cellularNumber: data.cellular_number
         })
       }
     });
@@ -72,7 +77,7 @@ class Profile extends Component {
 
   updateAccount = () => {
     const { user } = this.props.state;
-    if(this.state.email !== user.email && (this.state.password === '' || this.state.password === null)) {
+    if (this.state.email !== user.email && (this.state.password === '' || this.state.password === null)) {
       Alert.alert(
         "Opps",
         "Email not updated. Password needs to be changed too if you change your email.",
@@ -83,7 +88,7 @@ class Profile extends Component {
       );
       return
     }
-    if(this.state.password && (this.state.password.length < 6 || /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(this.state.password) === false)) {
+    if (this.state.password && (this.state.password.length < 6 || /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(this.state.password) === false)) {
       Alert.alert(
         "Opps",
         "Passwords should be atleast 6 characters. It must be alphanumeric characters. It should contain 1 number, 1 special character and 1 capital letter.",
@@ -94,7 +99,7 @@ class Profile extends Component {
       );
       return
     }
-    if((this.state.password !== null || this.state.confirmPassword !== null
+    if ((this.state.password !== null || this.state.confirmPassword !== null
       || this.state.password !== '' || this.state.confirmPassword !== '') && this.state.password !== this.state.confirmPassword) {
       Alert.alert(
         "Opps",
@@ -106,9 +111,9 @@ class Profile extends Component {
       );
       return
     }
-    if(this.state.password === null || this.state.confirmPassword === null
+    if (this.state.password === null || this.state.confirmPassword === null
       || this.state.password === '' || this.state.confirmPassword === '') {
-        return
+      return
     }
     let parameter = {
       id: user.id,
@@ -120,7 +125,7 @@ class Profile extends Component {
     this.setState({ isLoading: true })
     Api.request(Routes.accountUpdate, parameter, response => {
       this.setState({ isLoading: false })
-      if(response.data !== null) {
+      if (response.data !== null) {
         Alert.alert(
           "",
           "Email and Password updated successfully!",
@@ -162,13 +167,13 @@ class Profile extends Component {
       cellular_number: 'NULL'
     }
     this.updateAccount();
-    if(user.account_information?.last_name === this.state.lastName && user.account_information?.first_name === this.state.firstName) {
+    if (user.account_information?.last_name === this.state.lastName && user.account_information?.first_name === this.state.firstName) {
       return
     }
     this.setState({ isLoading: true })
     Api.request(Routes.accountInformationUpdate, parameter, response => {
       this.setState({ isLoading: false })
-      if(response.data !== null) {
+      if (response.data !== null) {
         this.reloadProfile();
         Alert.alert(
           "",
@@ -214,7 +219,7 @@ class Profile extends Component {
     }
     let parameter = null;
     let route = null
-    if(this.props.state.user?.account_profile?.url) {
+    if (this.props.state.user?.account_profile?.url) {
       parameter = {
         id: this.props.state.user?.account_profile?.id,
         url: url
@@ -247,139 +252,191 @@ class Profile extends Component {
   }
 
   render() {
-    const { user } = this.props.state;
+    const { user, theme } = this.props.state;
+    const { firstName, lastName } = this.state;
     return (
-      <View style={{height: height, backgroundColor: Color.containerBackground}}>
-        <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 150}}>
+      <View style={{ height: height, backgroundColor: Color.containerBackground }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ marginBottom: 150 }}>
           <View style={{
             backgroundColor: Color.containerBackground,
             marginBottom: 170
           }}>
             {this.state.isLoading ? <Spinner mode="overlay" /> : null}
-            <View style={{ borderBottomWidth: 1, borderColor: Color.primary }}>
-              <View style={Style.TopView}>
-                <TouchableOpacity
-                  style={{
-                    height: 180,
-                    width: 180,
-                    borderRadius: 100,
-                    borderColor: Color.primary,
-                    borderWidth: 2
-                  }}
-                  onPress={() => {
-                    this.setState({ isImageUpload: true })
-                  }}>
-                  {
-                    user.account_profile && user.account_profile.url ? (
-                      <Image
-                        source={user && user.account_profile && user.account_profile.url ? { uri: Config.BACKEND_URL + user.account_profile.url } : require('assets/logo.png')}
-                        style={[BasicStyles.profileImageSize, {
-                          height: '100%',
-                          width: '100%',
-                          borderRadius: 100
-                        }]} />
-                    ) : <FontAwesomeIcon
-                      icon={faUserCircle}
-                      size={176}
-                      style={{
-                        color: Color.primary
-                      }}
-                    />
-                  }
-                  <View style={{
-                    borderColor: Color.primary,
-                    borderWidth: 1,
-                    height: 50,
-                    width: 50,
-                    borderRadius: 100,
-                    marginRight: 5,
-                    position: 'absolute',
-                    right: -5,
-                    bottom: 1,
-                    backgroundColor: 'white',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}>
-                    <FontAwesomeIcon style={{
-                      borderColor: Color.primary
-                    }}
-                      icon={faEdit}
-                      size={20}
-                      color={Color.primary}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View style={{
-                width: '100%'
-              }}>
-                <TouchableOpacity onPress={() => {
+            <View style={[Style.TopView, { backgroundColor: theme ? theme.primary : Color.primary }]}>
+              <TouchableOpacity
+                style={{
+                  height: 120,
+                  width: 120,
+                  borderRadius: 100,
+                  borderColor: Color.primary,
+                  borderWidth: 2,
+                  marginTop: 15
+                }}
+                onPress={() => {
                   this.setState({ isImageUpload: true })
                 }}>
-                  <Text style={{
-                    textAlign: 'center',
-                    color: '#333333',
-                    marginBottom: 10
-                  }}>Tap to edit profile</Text>
-                </TouchableOpacity>
-              </View>
-              {this.state.loading === false && <View style={Style.BottomView}>
-                <FontAwesomeIcon style={{ marginRight: 5 }} icon={faCheckCircle} size={20} color={Color.primary} />
+                {
+                  user.account_profile && user.account_profile.url ? (
+                    <Image
+                      source={user && user.account_profile && user.account_profile.url ? { uri: Config.BACKEND_URL + user.account_profile.url } : require('assets/logo.png')}
+                      style={[BasicStyles.profileImageSize, {
+                        height: '100%',
+                        width: '100%',
+                        borderRadius: 100
+                      }]} />
+                  ) : <FontAwesomeIcon
+                    icon={faUserCircle}
+                    size={176}
+                    style={{
+                      color: Color.primary
+                    }}
+                  />
+                }
+              </TouchableOpacity>
+              <Text style={{
+                textAlign: 'center',
+                fontFamily: 'Poppins-SemiBold',
+                marginTop: 5
+              }}>{firstName && lastName && firstName + ' ' + lastName}</Text>
+              <Text style={{
+                textAlign: 'center',
+                fontSize: 11,
+                color: Color.white
+              }}>@lalaine_increment</Text>
+              <View style={Style.BottomView}>
+                <FontAwesomeIcon style={{ marginRight: 5 }} icon={faCheckCircle} size={20} color={'#0066FF'} />
                 <Text style={{
                   textAlign: 'center',
                   fontFamily: 'Poppins-SemiBold',
-                  fontSize: 18
-                }}>{this.state.firstName && this.state.middleName && this.state.lastName && this.state.firstName + ' ' + this.state.lastName}</Text>
-              </View>}
+                  fontStyle: 'italic'
+                }}>Verified</Text>
+              </View>
             </View>
             <View style={{
-              padding: 25,
+              marginTop: 40,
+              borderBottomWidth: 1,
+              paddingLeft: 15,
+              paddingBottom: 10,
+              borderColor: Color.gray,
+            }}>
+              <Text
+                style={{
+                  fontFamily: 'Poppins-SemiBold',
+                }}>
+                Personal Information
+              </Text>
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  right: 20,
+                }}
+                onPress={() => {
+                  this.setState({ isEdit: !this.state.isEdit })
+                }}>
+                <Text style={{
+                  color: this.state.isEdit ? Color.danger : theme ? theme.primary : Color.primary,
+                  fontFamily: 'Poppins-SemiBold',
+                }}>{this.state.isEdit ? 'Cancel' : 'Edit'}</Text>
+              </TouchableOpacity>
+            </View>
+            {this.state.isEdit ? <View style={{
+              paddingLeft: 20,
+              paddingRight: 20,
+              paddingBottom: 20,
+              paddingTop: 5,
               textAlign: 'center',
               justifyContent: 'center'
             }}>
-              <Text style={Style.TextStyle}>First Name</Text>
-              <TextInput
-                style={Style.TextInput}
-                onChangeText={text => this.firstNameHandler(text)}
-                value={this.state.firstName}
-                placeholder='   Enter First Name'
-                placeholderTextColor={'#d1d1d1'}
+              <InputFieldWithIcon
+                placeholder={this.state.firstName ? this.state.firstName : 'Enter First Name'}
+                icon={faUser}
+                label={'First Name'}
+                disable={true}
+                onTyping={text => { this.firstNameHandler(text) }}
+                profile={true}
+                placeholderTextColor={this.state.firstName ? '#000' : '#999'}
               />
-              <Text style={Style.TextStyle}>Last Name</Text>
-              <TextInput
-                style={Style.TextInput}
-                onChangeText={text => this.lastNameHandler(text)}
-                value={this.state.lastName}
-                placeholder='   Enter Last Name'
-                placeholderTextColor={'#d1d1d1'}
+              <InputFieldWithIcon
+                placeholder={this.state.lastName ? this.state.lastName : 'Enter Last Name'}
+                icon={faUser}
+                label={'Last Name'}
+                disable={true}
+                profile={true}
+                onTyping={text => { this.lastNameHandler(text) }}
               />
-              <Text style={Style.TextStyle}>Email</Text>
-              <TextInput
-                style={Style.TextInput}
-                onChangeText={text => this.emailHandler(text)}
-                value={this.state.email}
-                placeholder='   Enter Email'
-                placeholderTextColor={'#d1d1d1'}
+              <InputFieldWithIcon
+                placeholder={this.state.email ? this.state.email : 'Enter Email'}
+                icon={faUser}
+                label={'Email'}
+                disable={true}
+                profile={true}
+                onTyping={text => { this.emailHandler(text) }}
               />
-              <Text style={Style.TextStyle}>Password</Text>
-              <TextInput
-                style={Style.TextInput}
-                onChangeText={text => this.setState({password: text})}
-                value={this.state.password}
+              <InputFieldWithIcon
+                placeholder={this.state.password ? this.state.password : '********'}
+                icon={faUser}
+                label={'Password'}
+                disable={true}
+                profile={true}
                 secureTextEntry={true}
-                placeholder='   ********'
-                placeholderTextColor={'#d1d1d1'}
+                onTyping={text => { this.setState({ password: text }) }}
               />
-              <Text style={Style.TextStyle}>Confirm Password</Text>
-              <TextInput
-                style={Style.TextInput}
-                onChangeText={text => this.setState({confirmPassword: text})}
-                value={this.state.confirmPassword}
+              <InputFieldWithIcon
+                placeholder={this.state.confirmPassword ? this.state.confirmPassword : 'Confirm Password'}
+                icon={faUser}
+                label={'Confirm Password'}
+                disable={true}
                 secureTextEntry={true}
-                placeholder='   ********'
-                placeholderTextColor={'#d1d1d1'}
+                profile={true}
+                onTyping={text => { this.setState({ confirmPassword: text }) }}
               />
-            </View>
+            </View> :
+              <View style={{
+                padding: 25
+              }}>
+                <View style={{
+                  flexDirection: 'row',
+                  padding: 10
+                }}>
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    size={20}
+                    style={{
+                      color: Color.black,
+                      marginRight: 10
+                    }}
+                  />
+                  <Text>{this.state.email || 'No email provided'}</Text>
+                </View>
+                <View style={{
+                  flexDirection: 'row',
+                  padding: 10
+                }}>
+                  <FontAwesomeIcon
+                    icon={faMobileAlt}
+                    size={20}
+                    style={{
+                      color: Color.black,
+                      marginRight: 10
+                    }}
+                  />
+                  <Text>{this.state.cellularNumber || 'No phone number provided'}</Text>
+                </View>
+                <View style={{
+                  flexDirection: 'row',
+                  padding: 10
+                }}>
+                  <FontAwesomeIcon
+                    icon={faMapMarkerAlt}
+                    size={20}
+                    style={{
+                      color: Color.black,
+                      marginRight: 10
+                    }}
+                  />
+                  <Text>{this.state.email || 'No data'}</Text>
+                </View>
+              </View>}
           </View>
           {this.state.isImageUpload ?
             <ImageUpload
@@ -396,7 +453,7 @@ class Profile extends Component {
           bottom: 80,
           width: '90%'
         }}>
-          <CustomizedButton onClick={() => { this.update() }} title={'Update'}></CustomizedButton>
+          <CustomizedButton onClick={() => { this.update() }} title={'Save'}></CustomizedButton>
         </View>
       </View>
     );
