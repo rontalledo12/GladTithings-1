@@ -4,21 +4,11 @@ import { Color } from 'common';
 import Footer from 'modules/generic/Footer';
 import { connect } from 'react-redux';
 import CardsWithIcon from '../generic/CardsWithIcon';
-import InputFieldWithIcon from '../generic/InputFieldWithIcon';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const width = Math.round(Dimensions.get('window').width)
 const height = Math.round(Dimensions.get('window').height)
 
-const data = [
-  {
-    id: 0,
-    title: 'Theme 1',
-    description: "Receives email address every time there's a login of the account.",
-    date: 'July 23, 2021 5:00 PM',
-    amount: 'USD 10.00'
-  }
-]
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -28,72 +18,67 @@ class HomePage extends Component {
   }
 
   render() {
-    const { theme } = this.props.state;
+    const { theme, user } = this.props.state;
     return (
       <View style={{
         height: height,
         backgroundColor: Color.containerBackground
       }}>
         <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            user && (
+              <View style={{
+                width: '100%',
+                minHeight: 100,
+                borderRadius: 20,
+                backgroundColor: Color.primary,
+                paddingTop: 15,
+                paddingBottom: 15
+              }}>
+                <Text style={{
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  color: Color.white
+                }}>Welcome {user.username.toUpperCase()}</Text>
+
+              </View>
+            )
+          }
+
           <View style={{
-            padding: 15
+            paddingLeft: 20,
+            paddingRight: 20,
+            flex: 1
           }}>
-            <InputFieldWithIcon
-              placeholder={'Username'}
-              icon={faUser}
-              onTyping={(text) => {this.setState({input: text})}}
-            />
-            {
-              data.map((item, index) => {
-                return (
-                  <CardsWithIcon
-                    redirect={() => {
-                      console.log('donate')
-                    }}
-                    version={1}
-                    title={item.title}
-                    description={item.description}
-                    date={item.date}
-                    amount={item.amount}
-                  />
-                )
-              })
-            }
-            {
-              data.map((item, index) => {
-                return (
-                  <CardsWithIcon
-                    redirect={() => {
-                      console.log('donate')
-                    }}
-                    version={2}
-                    title={item.title}
-                    description={item.description}
-                    date={item.date}
-                    amount={item.amount}
-                  />
-                )
-              })
-            }
-            {
-              data.map((item, index) => {
-                return (
-                  <CardsWithIcon
-                    redirect={() => {
-                      console.log('donate')
-                    }}
-                    version={3}
-                    title={item.title}
-                    description={item.description}
-                    date={item.date}
-                    amount={item.amount}
-                  />
-                )
-              })
-            }
+            
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 10,
+              marginBottom: 10
+            }}>
+              <Text style={{
+                fontWeight: 'bold'
+              }}>Recently visited churches</Text>
+
+            </View>
+
+
+
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 10,
+              marginBottom: 10
+            }}>
+              <Text style={{
+                fontWeight: 'bold'
+              }}>Upcoming events</Text>
+
+            </View>
+
           </View>
         </ScrollView>
-        <Footer layer={0} {...this.props} />
       </View>
     );
   }
