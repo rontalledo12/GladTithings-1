@@ -3,8 +3,8 @@ import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { Color } from 'common';
 import Footer from 'modules/generic/Footer';
 import { connect } from 'react-redux';
-import CardsWithIcon from '../generic/CardsWithIcon';
-import InputFieldWithIcon from '../generic/InputFieldWithIcon';
+import CardsWithIcon from 'modules/generic/CardsWithIcon';
+import InputFieldWithIcon from 'modules/generic/InputFieldWithIcon';
 import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import IncrementButton from 'components/Form/Button';
 

@@ -17,7 +17,10 @@ import {
   faCheckCircle,
   faUserCircle,
   faUpload,
-  faEdit
+  faEdit,
+  faUser,
+  faMobile,
+  faMapMarkerAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { BasicStyles, Color, Routes, Helper } from 'common';
 import { Rating, DateTime } from 'components';
@@ -30,6 +33,7 @@ import Skeleton from 'components/Loading/Skeleton';
 import ImageModal from 'components/Modal/ImageModal';
 import ImageResizer from 'react-native-image-resizer';
 import Config from 'src/config.js';
+import InputFieldWithIcon from 'modules/generic/InputFieldWithIcon';
 
 const gender = [{
   title: 'Male',
@@ -70,8 +74,6 @@ class EditProfile extends Component {
 
   componentDidMount = () => {
     this.retrieve()
-    this.retrieveUploadedId()
-    this.verifyApplication()
   }
 
   retrieve = () => {
@@ -106,13 +108,6 @@ class EditProfile extends Component {
           // address: data[0].address,
           profile: data[0]
         })
-        this.verifyApplication()
-        // if(data.birth_date != null){
-        //   this.setState({
-        //     dateFlag: true,
-        //     birthDateLabel: data.birth_date
-        //   })
-        // }
       } else {
         this.setState({
           id: null,
@@ -128,37 +123,7 @@ class EditProfile extends Component {
     });
   }
 
-  retrieveUploadedId = () => {
-    this.state.uploadedID = []
-    const { setImageCount } = this.props
-    const { user } = this.props.state
-    let parameter = {
-      account_id: user.id,
-      payload: 'image_upload'
-    }
-    this.setState({ isLoading: true })
-    Api.request(Routes.accountCardsRetrieve, parameter, response => {
-      this.setState({ isLoading: false })
-      let numImage = response.data[0].content.length
-      setImageCount(numImage)
-      response.data[0].content.map(element => {
-        this.state.uploadedID.push(element)
-      })
-      // if(response.data[0].content.length  4){
-      //   this.setState({ reachMax : true })
-      // }
-    })
-    // this.verifyApplication()
-  }
 
-  verifyApplication = () => {
-    const { setScheduleShow } = this.props
-    const { scheduleShow } = this.props.state
-    const { first_name, middle_name, last_name, sex} = this.state
-    if(first_name != null && middle_name != null && last_name != null){
-      setScheduleShow(true)
-    }
-  }
 
   upload = () => {
     const { user } = this.props.state
@@ -195,37 +160,6 @@ class EditProfile extends Component {
               let imageData = new FormData()
               imageData.append('account_id', user.id);
               imageData.append('url', response.data.data)
-              if (profile.profile == null) {
-                Api.upload(Routes.accountProfileCreate, imageData, response => {
-                  if (response.data !== null) {
-                    this.retrieve();
-                    Alert.alert(
-                      'Message',
-                      'Image successfully uploaded',
-                      [
-                        { text: 'Ok', onPress: () => this.retrieveUploadedId(), style: 'cancel' }
-                      ],
-                      { cancelable: false }
-                    )
-                  }
-                })
-              } else {
-                imageData.append('id', profile.profile.id)
-                this.setState({ isLoading: true })
-                Api.upload(Routes.accountProfileUpdate, imageData, response => {
-                  if (response.data !== null) {
-                    this.retrieve();
-                    Alert.alert(
-                      'Message',
-                      'Image successfully updated',
-                      [
-                        { text: 'Ok', onPress: () => this.retrieveUploadedId(), style: 'cancel' }
-                      ],
-                      { cancelable: false }
-                    )
-                  }
-                })
-              }
             })
           })
           .catch(err => {
@@ -298,7 +232,6 @@ class EditProfile extends Component {
               imageData.append('payload', 'upload_image')
                 Api.upload(Routes.accountCardsCreate, imageData, response => {
                   if (response.data !== null) {
-                    this.retrieveUploadedId();
                     this.retrieve()
                     Alert.alert(
                       'Message',
@@ -524,30 +457,42 @@ class EditProfile extends Component {
               Basic Settings
             </Text>
 
-            <Text style={{ marginLeft: 20, paddingTop: 10, paddingBottom: 10 }}>First Name</Text>
-            <TextInput
-              style={[BasicStyles.formControl, { alignSelf: 'center' }]}
-              placeholder={'Enter your First Name'}
-              onChangeText={(first_name) => this.setState({ first_name })}
-              value={this.state.first_name}
-              required={true}
+            <View style={{
+              width: '100%',
+              paddingLeft: 20,
+              paddingRight: 20,
+            }}>
+
+            <InputFieldWithIcon
+              placeholder={'First Name'}
+              icon={faUser}
+              label={'First Name'}
+              onTyping={(text) => {this.setState({input: text})}}
             />
-            <Text style={{ marginLeft: 20, paddingTop: 10, paddingBottom: 10 }}>Middle Name</Text>
-            <TextInput
-              style={[BasicStyles.formControl, { alignSelf: 'center' }]}
-              placeholder={'Enter your Middle Name'}
-              onChangeText={(middle_name) => this.setState({ middle_name })}
-              value={this.state.middle_name}
-              required={true}
+
+            <InputFieldWithIcon
+              placeholder={'Last Name'}
+              icon={faUser}
+              label={'Last Name'}
+              onTyping={(text) => {this.setState({input: text})}}
             />
-            <Text style={{ marginLeft: 20, paddingTop: 10, paddingBottom: 10 }}>Last Name</Text>
-            <TextInput
-              style={[BasicStyles.formControl, { alignSelf: 'center' }]}
-              placeholder={'Enter your Last Name'}
-              onChangeText={(last_name) => this.setState({ last_name })}
-              value={this.state.last_name}
-              required={true}
+
+            <InputFieldWithIcon
+              placeholder={'Mobile Number'}
+              icon={faMobile}
+              label={'Mobile Number'}
+              onTyping={(text) => {this.setState({input: text})}}
             />
+
+            <InputFieldWithIcon
+              placeholder={'Address'}
+              icon={faMapMarkerAlt}
+              label={'Address'}
+              onTyping={(text) => {this.setState({input: text})}}
+            />
+
+            </View>
+
 
             <View style={{
               width: '100%',

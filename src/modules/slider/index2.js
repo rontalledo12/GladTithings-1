@@ -230,7 +230,10 @@ class Slider2 extends Component {
           </View>
         </View>
         <View style={[styles.navSectionStyle, { borderBottomWidth: 0, flex: 1, position: 'absolute', bottom: 15, borderTopWidth: 1, width: width, borderColor: 'white', paddingRight: 10 }]}>
-          <TouchableOpacity onPress={() => { this.navigateToScreen('TermsAndConditions') }} style={{ flexDirection: 'row-reverse', paddingTop: 5 }}>
+          <TouchableOpacity onPress={() => { this.navigateToScreen({
+            route: 'termsAndConditionStack',
+            route: 'drawerStack'
+          }) }} style={{ flexDirection: 'row-reverse', paddingTop: 5 }}>
 
             <View style={styles.inActiveDrawer}>
               <FontAwesomeIcon style={{
@@ -240,7 +243,10 @@ class Slider2 extends Component {
               <Text style={styles.BottomText}>Terms and Conditions</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.navigateToScreen('Privacy') }} style={{ flexDirection: 'row-reverse', paddingTop: 10 }}>
+          <TouchableOpacity onPress={() => { this.navigateToScreen({
+            route: 'privacyStack',
+            rotue: 'drawerStack'
+          }) }} style={{ flexDirection: 'row-reverse', paddingTop: 10 }}>
 
             <View style={styles.inActiveDrawer}>
               <FontAwesomeIcon style={{
