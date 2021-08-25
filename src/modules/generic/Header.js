@@ -75,32 +75,6 @@ class Header extends Component {
               ]}
             />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            this.navigateToScreen('MessagePage', 'Success Message')
-          }}
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 50,
-            width: 50,
-            position: 'absolute',
-            right: 1,
-            elevation: BasicStyles.elevation
-          }}
-        >
-            <FontAwesomeIcon
-              icon={faHistory}
-              size={BasicStyles.iconSize}
-              style={[
-                BasicStyles.iconStyle,
-                {
-                  color: Color.gray,
-                },
-              ]}
-            />
-        </TouchableOpacity>
       </View>
     );
   }
