@@ -36,24 +36,31 @@ class Slider2 extends Component {
     this.props.navigation.toggleDrawer();
   }
 
-  navigate = (route) => {
-    this.props.navigation.toggleDrawer();
-    const navigateAction = NavigationActions.navigate({
-      routeName: 'drawerStack',
-      action: StackActions.reset({
-        index: 0,
-        key: null,
-        actions: [
-          NavigationActions.navigate({
-            routeName: route, params: {
-              initialRouteName: route,
-              index: 0
-            }
-          }),
-        ]
-      })
-    });
-    this.props.navigation.dispatch(navigateAction);
+  navigate = (item) => {
+    if(item.payload === 'drawer'){
+      this.props.navigation.toggleDrawer();
+      const navigateAction = NavigationActions.navigate({
+        routeName: 'drawerStack',
+        action: StackActions.reset({
+          index: 0,
+          key: null,
+          actions: [
+            NavigationActions.navigate({
+              routeName: item.route, params: {
+                initialRouteName: item.route,
+                index: 0
+              }
+            }),
+          ]
+        })
+      });
+      this.props.navigation.dispatch(navigateAction);      
+    }else if(item.payload === 'drawerStack'){
+      this.props.navigation.navigate(item.route);
+      this.props.navigation.toggleDrawer();
+    }else{
+      this.onShare()
+    }
   }
 
   onShare = async () => {
@@ -207,7 +214,7 @@ class Slider2 extends Component {
                   ]}
                     key={index}
                     onPress={() => 
-                      this.navigate(item.route)
+                      this.navigate(item)
                     }>
                     <View style={styles.inActiveDrawer}>
                       <FontAwesomeIcon style={{

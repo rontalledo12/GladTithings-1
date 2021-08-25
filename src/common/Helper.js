@@ -1,6 +1,6 @@
 import React from 'react';
 import Color from './Color.js';
-import { faHome, faShieldAlt, faCopy, faCog, faBell, faChurch, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faShieldAlt, faCopy, faCog, faBell, faChurch, faTachometerAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faShareSquare } from '@fortawesome/free-regular-svg-icons';
 
 export default {
@@ -26,6 +26,7 @@ export default {
       route: 'Homepage',
       icon: faHome,
       borderBottom: false,
+      payload: 'drawer',
       currentPage: 'drawerStack'
     },
     {
@@ -33,6 +34,7 @@ export default {
       route: 'Dashboard',
       icon: faTachometerAlt,
       borderBottom: false,
+      payload: 'drawer',
       currentPage: 'Dashboard'
     },
     {
@@ -40,13 +42,15 @@ export default {
       route: 'Settings',
       icon: faCog,
       borderBottom: false,
+      payload: 'drawer',
       currentPage: 'Settings'
     },
     {
       title: 'Community',
-      route: 'communityStack',
-      icon: faChurch,
+      route: 'Community',
+      icon: faUsers,
       borderBottom: false,
+      payload: 'drawer',
       currentPage: 'Community'
     },
     {
@@ -54,6 +58,7 @@ export default {
       route: 'subscriptionStack',
       icon: faBell,
       borderBottom: false,
+      payload: 'drawerStack',
       currentPage: 'Subscription'
     },
     {
@@ -61,6 +66,7 @@ export default {
       route: 'share',
       icon: faShareSquare,
       borderBottom: true,
+      payload: 'share',
       currentPage: 'share'
     }
   ],
