@@ -67,7 +67,7 @@ class CustomizedHeader extends Component {
       }}>
         <View style={{
           width: '50%',
-          height: '90%'
+          height: (height / 4) - 40
         }}>
           <Image
             source={require('assets/test.jpg')}
@@ -121,7 +121,7 @@ class CustomizedHeader extends Component {
             flexDirection: 'row',
             alignItems: 'center',
             width: '85%',
-            marginTop: 20
+            marginTop: 10
           }}>
             <FontAwesomeIcon
               icon={faCalendarCheck}
@@ -170,7 +170,8 @@ class CustomizedHeader extends Component {
         backgroundColor: theme ? theme.primary : Color.primary,
         borderBottomRightRadius: 30,
         borderBottomLeftRadius: 30,
-        padding: 15
+        paddingLeft: 15,
+        paddingRight: 15
       }}>
         {this.props.version === 1 && this.versionOne()}
         {this.props.version === 2 && this.versionTwo()}

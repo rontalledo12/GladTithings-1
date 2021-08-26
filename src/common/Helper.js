@@ -46,6 +46,13 @@ export default {
       currentPage: 'Settings'
     },
     {
+      title: 'Donations',
+      route: 'Donations',
+      icon: faCog,
+      borderBottom: false,
+      currentPage: 'Donations'
+    },
+    {
       title: 'Community',
       route: 'Community',
       icon: faUsers,
@@ -69,6 +76,20 @@ export default {
       payload: 'share',
       currentPage: 'share'
     }
+    // {
+    //   title: 'Subscription',
+    //   route: 'subscriptionStack',
+    //   icon: faBell,
+    //   borderBottom: false,
+    //   currentPage: 'Subscription'
+    // },
+    // {
+    //   title: 'Share Profile',
+    //   route: 'share',
+    //   icon: faShareSquare,
+    //   borderBottom: true,
+    //   currentPage: 'share'
+    // }
   ],
   DrawerMenu1: [{
     title: 'Terms & Conditions',

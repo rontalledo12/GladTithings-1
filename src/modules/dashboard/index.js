@@ -3,7 +3,6 @@ import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-nati
 import { Color } from 'common';
 import { connect } from 'react-redux';
 import CardsWithIcon from '../generic/CardsWithIcon';
-import InputFieldWithIcon from '../generic/InputFieldWithIcon';
 import BalanceCard from 'modules/generic/BalanceCard.js';
 import IncrementButton from 'components/Form/Button';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -117,7 +116,9 @@ class Dashboard extends Component {
               />
             </View>
 
-            <Subscription />
+            <Subscription
+              navigation={this.props.navigation}
+            />
 
             <View style={{
               flexDirection: 'row',

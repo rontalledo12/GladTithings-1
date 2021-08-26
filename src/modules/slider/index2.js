@@ -196,12 +196,19 @@ class Slider2 extends Component {
               </Text>
             )
           }
-          <View style={{
-            marginTop: height / 3.5,
-            position: 'absolute',
-            right: 0,
-            alignItems: 'flex-end'
-          }}>
+
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              marginTop: height / 3.7,
+              position: 'absolute',
+              right: 0,
+              height: '42%',
+            }}>
+            <View style={{
+              alignItems: 'flex-end',
+              height: '100%'
+            }}>
             {Helper.DrawerMenu.length > 0 &&
               Helper.DrawerMenu.map((item, index) => {
                 return (
@@ -214,7 +221,7 @@ class Slider2 extends Component {
                   ]}
                     key={index}
                     onPress={() => 
-                      this.navigate(item)
+                      this.navigateToScreen(item.route)
                     }>
                     <View style={styles.inActiveDrawer}>
                       <FontAwesomeIcon style={{
@@ -227,7 +234,8 @@ class Slider2 extends Component {
                 )
               })
             }
-          </View>
+            </View>
+          </ScrollView>
         </View>
         <View style={[styles.navSectionStyle, { borderBottomWidth: 0, flex: 1, position: 'absolute', bottom: 15, borderTopWidth: 1, width: width, borderColor: 'white', paddingRight: 10 }]}>
           <TouchableOpacity onPress={() => { this.navigateToScreen({

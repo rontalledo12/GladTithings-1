@@ -517,7 +517,6 @@ class EditProfile extends Component {
               />
             </View>
           </View>
-          
         </ScrollView>
       </View>
     );

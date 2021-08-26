@@ -15,17 +15,16 @@ export default {
     backgroundColor: Color.white
   },
   TopView: {
-    justifyContent: 'center',
     alignItems: 'center',
-    height: 200,
-    marginTop: 10
+    height: 220,
+    marginTop: 10,
+    borderRadius: 10
   },
   BottomView: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
     marginBottom: 30
   },
   TextStyle: {

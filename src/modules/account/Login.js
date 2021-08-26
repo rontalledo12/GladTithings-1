@@ -361,6 +361,7 @@ class Login extends Component {
   }
 
   submit() {
+    // this.props.navigation.navigate('drawerStack');
     const { username, password } = this.state;
     const { login } = this.props;
     if ((username != null && username != '') && (password != null && password != '')) {

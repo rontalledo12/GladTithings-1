@@ -48,18 +48,23 @@ class Header extends Component {
   render() {
     const { routeName } = this.props.navigation.state;
     const { theme } = this.props.state;
-
+    console.log(this.props.navigation.state);
     return (
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
+          justifyContent: 'center',
           width: width,
-          backgroundColor: Color.containerBackground,
+          backgroundColor: this.props.navigation.state.routeName === 'Homepage' ? theme ? theme.primary : Color.primary : Color.containerBackground,
           height: 60,
           padding: 5
         }}>
         <TouchableOpacity
+        style={{
+          position: 'absolute',
+          left: 10
+        }}
           onPress={() => {
             this.props.navigation.toggleDrawer()
           }}
@@ -75,6 +80,37 @@ class Header extends Component {
               ]}
             />
         </TouchableOpacity>
+
+        <Text style={{
+          color: Color.white,
+          fontFamily: 'Poppins-SemiBold'
+        }}>Welcome Kennette!</Text>
+
+        {/* <TouchableOpacity
+          onPress={() => {
+            this.navigateToScreen('MessagePage', 'Success Message')
+          }}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 50,
+            width: 50,
+            position: 'absolute',
+            right: 1,
+            elevation: BasicStyles.elevation
+          }}
+        >
+            <FontAwesomeIcon
+              icon={faHistory}
+              size={BasicStyles.iconSize}
+              style={[
+                BasicStyles.iconStyle,
+                {
+                  color: Color.gray,
+                },
+              ]}
+            />
+        </TouchableOpacity> */}
       </View>
     );
   }

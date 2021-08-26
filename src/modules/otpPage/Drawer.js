@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faArrowLeft, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
-import {Color, BasicStyles} from 'common';
+import {faChevronLeft, faBars} from '@fortawesome/free-solid-svg-icons';
+import Profile from 'modules/otpPage';
+import {NavigationActions} from 'react-navigation';
+import {BasicStyles, Color} from 'common';
 import {connect} from 'react-redux';
-import EditProfile from './index.js';
 
 class HeaderOptions extends Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class HeaderOptions extends Component {
   back = () => {
     this.props.navigationProps.pop()
   };
-  
   render() {
     const { theme } = this.props.state;
     return (
@@ -36,29 +36,22 @@ const mapStateToProps = (state) => ({state: state});
 
 const mapDispatchToProps = (dispatch) => {
   const {actions} = require('@redux');
-  return {
-    logout: () => dispatch(actions.logout()),
-  };
+  return {};
 };
-
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
-const EditProfileStack = createStackNavigator({
-  editProfileScreen: {
-    screen: EditProfile,
+const OtpPageStack = createStackNavigator({
+  otpPageScreen: {
+    screen: Profile,
     navigationOptions: ({navigation}) => ({
-      title: 'Edit Profile',
+      title: 'OTP',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      ...BasicStyles.headerDrawerStyle
+      ...BasicStyles.drawerHeader1
     }),
   },
 });
 
-const styles = StyleSheet.create({
-  iconStyle: {
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfileStack);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(OtpPageStack);
