@@ -39,7 +39,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { theme } = this.props.state;
+    const { theme, user } = this.props.state;
     return (
       <View style={{
         height: height,
@@ -62,7 +62,6 @@ class HomePage extends Component {
             />
           </View>
         </ScrollView>
-        <Footer layer={0} {...this.props} />
       </View>
     );
   }

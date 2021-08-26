@@ -19,7 +19,6 @@ class TermsAndConditions extends Component {
           <View style={styles.TermsAndConditionsContainer}>
             <View style={styles.SectionContainer}>
               <View style={[styles.SectionDescriptionContainer, {
-                marginTop: 25
               }]}>
                 <Text style={styles.SectionDescriptionTextStyle}>
                   Thank you for choosing SIML a product of Increment Technologies (“we, us, our”) to provide you (“you, your, yours, user”) with services for money transfer. Our program is very straightforward and easy to use, designed to take you from beginner to advanced which are available on (i) applications available to download on mobile on both iOS and Android, and access our website by using any desktops or mobile devices, by which you can use to send or transfer funds in any location you want, collectively being our services to you (“Program”).

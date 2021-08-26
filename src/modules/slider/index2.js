@@ -36,24 +36,31 @@ class Slider2 extends Component {
     this.props.navigation.toggleDrawer();
   }
 
-  navigate = (route) => {
-    this.props.navigation.toggleDrawer();
-    const navigateAction = NavigationActions.navigate({
-      routeName: 'drawerStack',
-      action: StackActions.reset({
-        index: 0,
-        key: null,
-        actions: [
-          NavigationActions.navigate({
-            routeName: route, params: {
-              initialRouteName: route,
-              index: 0
-            }
-          }),
-        ]
-      })
-    });
-    this.props.navigation.dispatch(navigateAction);
+  navigate = (item) => {
+    if(item.payload === 'drawer'){
+      this.props.navigation.toggleDrawer();
+      const navigateAction = NavigationActions.navigate({
+        routeName: 'drawerStack',
+        action: StackActions.reset({
+          index: 0,
+          key: null,
+          actions: [
+            NavigationActions.navigate({
+              routeName: item.route, params: {
+                initialRouteName: item.route,
+                index: 0
+              }
+            }),
+          ]
+        })
+      });
+      this.props.navigation.dispatch(navigateAction);      
+    }else if(item.payload === 'drawerStack'){
+      this.props.navigation.navigate(item.route);
+      this.props.navigation.toggleDrawer();
+    }else{
+      this.onShare()
+    }
   }
 
   onShare = async () => {
@@ -63,7 +70,7 @@ class Slider2 extends Component {
     }
     try {
       const result = await Share.share({
-        message: `https://wearesynqt/profile/${user?.id}/${user?.code}`
+        message: `https://gladtithings.com/profile/${user?.id}/${user?.code}`
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -189,12 +196,19 @@ class Slider2 extends Component {
               </Text>
             )
           }
-          <View style={{
-            marginTop: height / 3.5,
-            position: 'absolute',
-            right: 0,
-            alignItems: 'flex-end'
-          }}>
+
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              marginTop: height / 3.7,
+              position: 'absolute',
+              right: 0,
+              height: '42%',
+            }}>
+            <View style={{
+              alignItems: 'flex-end',
+              height: '100%'
+            }}>
             {Helper.DrawerMenu.length > 0 &&
               Helper.DrawerMenu.map((item, index) => {
                 return (
@@ -220,10 +234,14 @@ class Slider2 extends Component {
                 )
               })
             }
-          </View>
+            </View>
+          </ScrollView>
         </View>
         <View style={[styles.navSectionStyle, { borderBottomWidth: 0, flex: 1, position: 'absolute', bottom: 15, borderTopWidth: 1, width: width, borderColor: 'white', paddingRight: 10 }]}>
-          <TouchableOpacity onPress={() => { this.navigateToScreen('TermsAndConditions') }} style={{ flexDirection: 'row-reverse', paddingTop: 5 }}>
+          <TouchableOpacity onPress={() => { this.navigateToScreen({
+            route: 'termsAndConditionStack',
+            route: 'drawerStack'
+          }) }} style={{ flexDirection: 'row-reverse', paddingTop: 5 }}>
 
             <View style={styles.inActiveDrawer}>
               <FontAwesomeIcon style={{
@@ -233,7 +251,10 @@ class Slider2 extends Component {
               <Text style={styles.BottomText}>Terms and Conditions</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.navigateToScreen('Privacy') }} style={{ flexDirection: 'row-reverse', paddingTop: 10 }}>
+          <TouchableOpacity onPress={() => { this.navigateToScreen({
+            route: 'privacyStack',
+            rotue: 'drawerStack'
+          }) }} style={{ flexDirection: 'row-reverse', paddingTop: 10 }}>
 
             <View style={styles.inActiveDrawer}>
               <FontAwesomeIcon style={{

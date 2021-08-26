@@ -6,7 +6,6 @@ import HomePageScreen from './index';
 import {connect} from 'react-redux';
 import StackHeaderTitle from 'modules/generic/StackHeaderTitle';
 import { Color } from 'common';
-import NavigatorHeader from 'modules/generic/NavigatorHeader';
 const width = Math.round(Dimensions.get('window').width)
 
 const TasksStack = createStackNavigator();
@@ -36,9 +35,6 @@ const Stack = props => {
               shadowColor: 'transparent',
               elevation: 0
             },
-            headerLeft: () => (
-              <NavigatorHeader {...props} />
-            ),
           };
         }}
       />

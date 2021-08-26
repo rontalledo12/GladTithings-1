@@ -16,6 +16,7 @@ import TransactionsStack from 'src/modules/transactions/Drawer';
 import PageMessageStack from 'src/modules/messages/Drawer';
 import DepositStack from 'src/modules/deposit/Drawer';
 import OtpStack from 'src/modules/otpPage/Drawer';
+import EditProfileStack from 'src/modules/editProfile/Drawer';
 import NotificationSettingsStack from 'src/modules/notificationSettings/Drawer';
 import Drawer from './Drawer';
 
@@ -84,7 +85,8 @@ const PrimaryNav = createStackNavigator(
     pageMessageStack: { screen: PageMessageStack},
     depositStack: { screen: DepositStack},
     notificationSettingsStack: { screen: NotificationSettingsStack},
-    otpStack: { screen: OtpStack }
+    otpStack: { screen: OtpStack },
+    editProfileStack: { screen: EditProfileStack }
   },
   {
     // Default config for all screens
