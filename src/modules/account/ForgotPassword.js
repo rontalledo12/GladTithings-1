@@ -288,8 +288,7 @@ class ForgotPassword extends Component {
             <View style={{
               width: '100%',
               alignItems: 'center',
-              position: 'absolute',
-              bottom: 20
+              marginTop: 20
             }}>
               <Text style={{
                 color: 'white',
