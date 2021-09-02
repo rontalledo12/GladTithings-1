@@ -203,7 +203,7 @@ class Slider2 extends Component {
               marginTop: height / 3.7,
               position: 'absolute',
               right: 0,
-              height: '42%',
+              height: '50%',
             }}>
             <View style={{
               alignItems: 'flex-end',
@@ -238,32 +238,6 @@ class Slider2 extends Component {
           </ScrollView>
         </View>
         <View style={[styles.navSectionStyle, { borderBottomWidth: 0, flex: 1, position: 'absolute', bottom: 15, borderTopWidth: 1, width: width, borderColor: 'white', paddingRight: 10 }]}>
-          <TouchableOpacity onPress={() => { this.navigateToScreen({
-            route: 'termsAndConditionStack',
-            route: 'drawerStack'
-          }) }} style={{ flexDirection: 'row-reverse', paddingTop: 5 }}>
-
-            <View style={styles.inActiveDrawer}>
-              <FontAwesomeIcon style={{
-                padding: 10,
-                color: Color.secondary,
-              }} icon={faCopy} size={BasicStyles.iconSize}></FontAwesomeIcon>
-              <Text style={styles.BottomText}>Terms and Conditions</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.navigateToScreen({
-            route: 'privacyStack',
-            rotue: 'drawerStack'
-          }) }} style={{ flexDirection: 'row-reverse', paddingTop: 10 }}>
-
-            <View style={styles.inActiveDrawer}>
-              <FontAwesomeIcon style={{
-                padding: 10,
-                color: Color.secondary
-              }} icon={faShieldAlt} size={BasicStyles.iconSize}></FontAwesomeIcon>
-              <Text style={styles.BottomText}>Privacy Policy</Text>
-            </View>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => { this.logoutAction() }} style={{ flexDirection: 'row-reverse', paddingTop: 10 }}>
             <FontAwesomeIcon style={[
               styles.navItemStyle, {

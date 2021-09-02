@@ -22,6 +22,7 @@ import { faArrowRight, faUser } from '@fortawesome/free-solid-svg-icons';
 import Button from '../generic/Button.js'
 import { fcmService } from 'services/broadcasting/FCMService';
 import { localNotificationService } from 'services/broadcasting/LocalNotificationService';
+import { Right } from 'native-base';
 const height = Math.round(Dimensions.get('window').height);
 const width = Math.round(Dimensions.get('window').width);
 class Login extends Component {
@@ -478,8 +479,9 @@ class Login extends Component {
               style={{
                 color: 'white',
                 width: '50%',
-                marginLeft: '60%',
-                marginTop: 20
+                marginTop: 20,
+                alignSelf: 'flex-end',
+                textAlign: 'right'
               }}
             >Forgot Password?</Text>
 

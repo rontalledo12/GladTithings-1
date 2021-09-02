@@ -54,6 +54,11 @@ class HomePage extends Component {
             }}
           />
           <View>
+            <Text style={{
+              paddingTop: 20,
+              paddingLeft: 20,
+              fontFamily: 'Poppins-SemiBold'
+            }}>Recently Visited Churches</Text>
             <CardsWithImages
               version={1}
               data={data}
