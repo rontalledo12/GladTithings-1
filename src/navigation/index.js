@@ -18,7 +18,14 @@ import DepositStack from 'src/modules/deposit/Drawer';
 import OtpStack from 'src/modules/otpPage/Drawer';
 import EditProfileStack from 'src/modules/editProfile/Drawer';
 import NotificationSettingsStack from 'src/modules/notificationSettings/Drawer';
+import ChurchProfileStack from 'src/modules/churchProfile/Drawer';
+import ChurchesStack from 'src/modules/churches/Drawer';
+import EventsStack from 'src/modules/events/Drawer';
+import QRCodeScannerStack from 'modules/qrCodeScanner/qrCodeScannerDrawer.js';
+import EwalletStack from 'src/modules/ewallet/Drawer';
+import LanguageSettingsStack from 'src/modules/languageSettings/Drawer';
 import Drawer from './Drawer';
+import CreateCommunityStack from 'src/modules/community/createCommunityDrawer.js';
 
 const WelcomeStack = createStackNavigator(
   {
@@ -86,7 +93,14 @@ const PrimaryNav = createStackNavigator(
     depositStack: { screen: DepositStack},
     notificationSettingsStack: { screen: NotificationSettingsStack},
     otpStack: { screen: OtpStack },
-    editProfileStack: { screen: EditProfileStack }
+    editProfileStack: { screen: EditProfileStack },
+    churchProfileStack: { screen: ChurchProfileStack },
+    churchesStack: { screen: ChurchesStack },
+    eventsStack: { screen: EventsStack },
+    qrCodeScannerStack: {screen: QRCodeScannerStack},
+    ewalletStack: {screen: EwalletStack},
+    createCommunityStack: { screen: CreateCommunityStack },
+    languageSettingsStack: { screen: LanguageSettingsStack }
   },
   {
     // Default config for all screens

@@ -13,6 +13,9 @@ const types = {
   SET_DEEP_LINK_ROUTE: 'SET_DEEP_LINK_ROUTE',
   SET_CURRENT_ACCOUNT: 'SET_CURRENT_ACCOUNT',
   SET_CURRENT_ROUTE: 'SET_CURRENT_ROUTE',
+  SET_QR_CODE_MODAL: 'SET_QR_CODE_MODAL',
+  SET_LEDGER: 'SET_LEDGER',
+  SET_PAYPAL_URL: 'SET_PAYPAL_URL'
 };
 
 export const actions = {
@@ -40,6 +43,15 @@ export const actions = {
   },
   setCurrentRoute(route) {
     return { type: types.SET_CURRENT_ROUTE, route }
+  },
+  setQRCodeModal(isVisible) {
+    return { type: types.SET_QR_CODE_MODAL, isVisible }
+  },
+  setLedger(ledger) {
+    return { type: types.SET_LEDGER, ledger }
+  },
+  setPaypalUrl(paypalUrl) {
+    return { type: types.SET_PAYPAL_URL, paypalUrl}
   }
 };
 
@@ -51,6 +63,11 @@ const initialState = {
   deepLinkRoute: null,
   acc: null,
   route: null,
+  isVisible: {
+    isVisible: false
+  },
+  ledger: null,
+  paypalUrl: null
 };
 
 storeData = async (key, value) => {
@@ -66,6 +83,8 @@ const reducer = (state = initialState, action) => {
   const { theme, layer } = action;
   const { acc } = action;
   const { route } = action;
+  const { ledger } = action;
+  const { paypalUrl } = action;
   switch (type) {
     case types.LOGOUT:
       AsyncStorage.clear();
@@ -114,6 +133,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         acc
+      }
+    case types.SET_LEDGER:
+      return {
+        ...state,
+        ledger
+      }
+    case types.SET_PAYPAL_URL:
+      return {
+        ...state,
+        paypalUrl
       }
     default:
       return { ...state, nav: state.nav };

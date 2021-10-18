@@ -1,91 +1,123 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
-import { Color } from 'common';
+import { Color, Routes } from 'common';
+import Api from 'services/api/index.js';
 import { connect } from 'react-redux';
 import CardsWithIcon from '../generic/CardsWithIcon';
 import BalanceCard from 'modules/generic/BalanceCard.js';
 import IncrementButton from 'components/Form/Button';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import Subscription from 'modules/generic/Subscriptions.js'
+import Subscription from 'modules/generic/Subscriptions.js';
+import { Spinner } from 'components';
 
 const width = Math.round(Dimensions.get('window').width)
 const height = Math.round(Dimensions.get('window').height)
 
-const data = [
-  {
-    id: 0,
-    title: 'Churh 1',
-    description: "Receives email address every time there's a login of the account.",
-    date: 'July 23, 2021 5:00 PM',
-    amount: 'USD 10.00'
-  },
-  {
-    id: 1,
-    title: 'Churh 2',
-    description: "Receives email address every time there's a login of the account.",
-    date: 'July 23, 2021 5:00 PM',
-    amount: 'USD 10.00'
-  },
-  {
-    id: 2,
-    title: 'Churh 1',
-    description: "Receives email address every time there's a login of the account.",
-    date: 'July 23, 2021 5:00 PM',
-    amount: 'USD 10.00'
-  },
-  {
-    id: 3,
-    title: 'Churh 2',
-    description: "Receives email address every time there's a login of the account.",
-    date: 'July 23, 2021 5:00 PM',
-    amount: 'USD 10.00'
-  },
-  {
-    id: 4,
-    title: 'Churh 1',
-    description: "Receives email address every time there's a login of the account.",
-    date: 'July 23, 2021 5:00 PM',
-    amount: 'USD 10.00'
-  },
-  {
-    id: 5,
-    title: 'Churh 2',
-    description: "Receives email address every time there's a login of the account.",
-    date: 'July 23, 2021 5:00 PM',
-    amount: 'USD 10.00'
-  }
-]
-
-const balance = {
-  current_balance: 10000,
-  currency: 'USD',
-  available_balance: 5000
-}
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      input: null
+    this.state = {
+      input: null,
+      ledger: {
+        currency: 'USD',
+        available_balance: 0,
+        current_balance: 0,
+        balance: 0
+      },
+      isLoading: false,
+      data: [],
+      offset: 0,
+      limit: 5
     }
+  }
+
+  componentDidMount() {
+    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+      this.retrieveBalance();
+      this.retrieve(false);
+    })
+  }
+
+  retrieve = (flag) => {
+    const { user } = this.props.state;
+    let parameter = {
+      condition: [{
+        column: 'account_id',
+        value: user.id,
+        clause: '='
+      }, {
+        column: 'account_id',
+        value: user.id,
+        clause: 'or'
+      }],
+      sort: { created_at: 'desc' },
+      limit: this.state.limit,
+      offset: flag == true && this.state.offset > 0 ? (this.state.offset * this.state.limit) : this.state.offset
+    }
+    this.setState({ isLoading: true })
+    Api.request(Routes.transactionHistoryRetrieve, parameter, response => {
+      this.setState({ isLoading: false })
+      if (response.data.length > 0) {
+        this.setState({
+          data: flag == false ? response.data : _.uniqBy([...this.state.data, ...response.data], 'id'),
+          offset: flag == false ? 1 : (this.state.offset + 1)
+        })
+      } else {
+        this.setState({
+          data: flag == false ? [] : this.state.data,
+          offset: flag == false ? 0 : this.state.offset
+        })
+      }
+    });
+  }
+
+  retrieveBalance = () => {
+    const { user } = this.props.state;
+    let parameter = {
+      condition: [
+        {
+          clause: '=',
+          column: 'account_id',
+          value: user.id
+        }
+      ],
+      account_id: user.id,
+      account_code: user.code
+    }
+    this.setState({ isLoading: true })
+    Api.request(Routes.ledgerDashboard, parameter, response => {
+      this.setState({ isLoading: false })
+      if (response.data) {
+        this.setState({ ledger: response.data.ledger[0] });
+        this.props.setLedger(response.data.ledger[0])
+      }
+    }, error => {
+      console.log(error);
+      this.setState({ isLoading: false });
+    })
   }
 
   render() {
     const { theme } = this.props.state;
+    const { ledger, data, isLoading } = this.state;
     return (
       <View style={{
-        height: height,
         backgroundColor: Color.containerBackground
       }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={{
+            backgroundColor: Color.containerBackground
+          }} showsVerticalScrollIndicator={false}
+        >
           <View style={{
-            padding: 15
+            paddingLeft: 15,
+            paddingBottom: 15,
+            paddingRight: 15,
+            height: height * 1.5,
           }}>
-            
-
+            {isLoading ? <Spinner mode="overlay" /> : null}
             {
-              balance && (
-                <BalanceCard data={balance}/>
+              ledger && (
+                <BalanceCard data={ledger} />
               )
             }
 
@@ -99,20 +131,20 @@ class Dashboard extends Component {
                 backgroundColor: Color.secondary,
                 width: '40%'
               }}
-              onClick={() => {
-                this.props.navigation.navigate('depositStack')
-              }}
-              title={'Deposit'}
+                onClick={() => {
+                  this.props.navigation.navigate('depositStack', { page: 'Deposit' })
+                }}
+                title={'Deposit'}
               />
 
               <IncrementButton style={{
                 backgroundColor: Color.secondary,
                 width: '40%'
               }}
-              onClick={() => {
-                this.props.navigation.navigate('withdrawStack')
-              }}
-              title={'Withdraw'}
+                onClick={() => {
+                  this.props.navigation.navigate('depositStack', { page: 'Withdraw' })
+                }}
+                title={'Withdraw'}
               />
             </View>
 
@@ -127,19 +159,18 @@ class Dashboard extends Component {
               marginBottom: 10
             }}>
               <Text style={{
-                fontWeight: 'bold',
+                fontFamily: 'Poppins-SemiBold',
                 color: Color.primary
-              }}>Donations</Text>
-
+              }}>Tithings</Text>
               <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.navigate('transactionsStack')
                 }}
-                >
+              >
 
                 <Text style={{
-                  fontWeight: 'bold',
-                }}>View more</Text>
+                  fontFamily: 'Poppins-SemiBold',
+                }}>{'View more >>>'}</Text>
 
               </TouchableOpacity>
             </View>
@@ -149,29 +180,31 @@ class Dashboard extends Component {
                 return (
                   <CardsWithIcon
                     redirect={() => {
-                      console.log('donate')
+                      console.log('')
                     }}
                     version={3}
-                    title={item.title}
                     description={item.description}
-                    date={item.date}
-                    amount={item.amount}
-                    style={{
-                      marginBottom: index == (data.length - 1) ? height * 0.5 : 0
-                    }}
+                    title={item.receiver ? item.receiver.email : item.description}
+                    date={item.created_at_human}
+                    amount={item.currency + ' ' + item.amount?.toLocaleString()}
                   />
                 )
               })
             }
-
           </View>
         </ScrollView>
       </View>
     );
   }
 }
-const mapStateToProps = state => ({ state: state });
+const mapStateToProps = (state) => ({ state: state });
 
-export default connect(
-  mapStateToProps
-)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+  const { actions } = require('@redux');
+  return {
+    setQRCodeModal: (isVisible) => dispatch(actions.setQRCodeModal({ isVisible: isVisible })),
+    setLedger: (ledger) => dispatch(actions.setLedger(ledger))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

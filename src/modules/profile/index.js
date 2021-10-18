@@ -22,11 +22,10 @@ class Profile extends Component {
       isLoading: false,
       id: null,
       isImageUpload: false,
-      password: null,
-      confirmPassword: null,
-      email: null,
       isEdit: false,
-      cellularNumber: null
+      cellularNumber: null,
+      gender: null,
+      address: null
     }
   }
 
@@ -44,6 +43,18 @@ class Profile extends Component {
 
   emailHandler = (value) => {
     this.setState({ email: value })
+  }
+
+  cellularNumberHandler = (value) => {
+    this.setState({ cellularNumber: value })
+  }
+
+  addressHandler = (value) => {
+    this.setState({ address: value })
+  }
+
+  genderHandler = (value) => {
+    this.setState({ gender: value })
   }
 
   retrieve = () => {
@@ -69,7 +80,9 @@ class Profile extends Component {
           firstName: data.first_name,
           lastName: data.last_name,
           email: user.email,
-          cellularNumber: data.cellular_number
+          cellularNumber: data.cellular_number,
+          address: data.address,
+          gender: data.sex
         })
       }
     });
@@ -144,6 +157,7 @@ class Profile extends Component {
 
   update = () => {
     const { user } = this.props.state;
+    console.log(this.validation(), user, '-----');
     if (user === null) {
       return
     }
@@ -163,13 +177,16 @@ class Profile extends Component {
       account_id: user.id,
       first_name: this.state.firstName,
       middle_name: 'NULL',
+      sex: this.state.gender,
       last_name: this.state.lastName,
-      cellular_number: 'NULL'
+      cellular_number: this.state.cellularNumber,
+      address: this.state.address
     }
-    this.updateAccount();
-    if (user.account_information?.last_name === this.state.lastName && user.account_information?.first_name === this.state.firstName) {
-      return
-    }
+    // this.updateAccount();
+    // if (user.account_information?.last_name === this.state.lastName && user.account_information?.first_name === this.state.firstName && this.state) {
+    //   return
+    // }
+
     this.setState({ isLoading: true })
     Api.request(Routes.accountInformationUpdate, parameter, response => {
       this.setState({ isLoading: false })
@@ -177,7 +194,7 @@ class Profile extends Component {
         this.reloadProfile();
         Alert.alert(
           "",
-          "Name updated successfully!",
+          "Profile updated successfully!",
           [
             { text: "OK" }
           ],
@@ -242,9 +259,11 @@ class Profile extends Component {
   }
 
   validation = () => {
-    const { firstName, lastName, password, confirmPassword } = this.state;
+    const { firstName, lastName, address, gender } = this.state;
     if (firstName === null || lastName === null ||
-      firstName === '' || lastName === '') {
+        firstName === '' || lastName === '' ||
+        address === '' || address === null ||
+        gender === '' || gender === null) {
       return true;
     } else {
       return false;
@@ -255,13 +274,13 @@ class Profile extends Component {
     const { user, theme } = this.props.state;
     const { firstName, lastName } = this.state;
     return (
-      <View style={{ height: height, backgroundColor: Color.containerBackground }}>
-        <ScrollView showsVerticalScrollIndicator={false} style={{ marginBottom: 150 }}>
+      <View style={{backgroundColor: Color.containerBackground}}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{
             backgroundColor: Color.containerBackground,
-            marginBottom: 170
+            marginBottom: 170,
+            height: height * 1.5
           }}>
-            {this.state.isLoading ? <Spinner mode="overlay" /> : null}
             <View style={[Style.TopView, { backgroundColor: theme ? theme.primary : Color.primary }]}>
               <TouchableOpacity
                 style={{
@@ -286,9 +305,9 @@ class Profile extends Component {
                       }]} />
                   ) : <FontAwesomeIcon
                     icon={faUserCircle}
-                    size={176}
+                    size={130}
                     style={{
-                      color: Color.primary
+                      color: 'white'
                     }}
                   />
                 }
@@ -300,9 +319,9 @@ class Profile extends Component {
               }}>{firstName && lastName && firstName + ' ' + lastName}</Text>
               <Text style={{
                 textAlign: 'center',
-                fontSize: 11,
+                marginBottom: 2,
                 color: Color.white
-              }}>@lalaine_increment</Text>
+              }}>@{user.email}</Text>
               <View style={Style.BottomView}>
                 <FontAwesomeIcon style={{ marginRight: 5 }} icon={faCheckCircle} size={20} color={'#0066FF'} />
                 <Text style={{
@@ -351,7 +370,6 @@ class Profile extends Component {
                 placeholder={this.state.firstName ? this.state.firstName : 'Enter First Name'}
                 icon={faUser}
                 label={'First Name'}
-                disable={true}
                 onTyping={text => { this.firstNameHandler(text) }}
                 profile={true}
                 placeholderTextColor={this.state.firstName ? '#000' : '#999'}
@@ -360,35 +378,29 @@ class Profile extends Component {
                 placeholder={this.state.lastName ? this.state.lastName : 'Enter Last Name'}
                 icon={faUser}
                 label={'Last Name'}
-                disable={true}
                 profile={true}
                 onTyping={text => { this.lastNameHandler(text) }}
               />
               <InputFieldWithIcon
-                placeholder={this.state.email ? this.state.email : 'Enter Email'}
+                placeholder={this.state.gender ? this.state.gender : 'Enter Gender'}
                 icon={faUser}
-                label={'Email'}
-                disable={true}
+                label={'Gender'}
                 profile={true}
-                onTyping={text => { this.emailHandler(text) }}
+                onTyping={text => { this.genderHandler(text) }}
               />
               <InputFieldWithIcon
-                placeholder={this.state.password ? this.state.password : '********'}
+                placeholder={this.state.cellularNumber ? this.state.cellularNumber : 'Enter Phone Number'}
                 icon={faUser}
-                label={'Password'}
-                disable={true}
+                label={'Phone Number'}
                 profile={true}
-                secureTextEntry={true}
-                onTyping={text => { this.setState({ password: text }) }}
+                onTyping={text => { this.cellularNumberHandler(text) }}
               />
               <InputFieldWithIcon
-                placeholder={this.state.confirmPassword ? this.state.confirmPassword : 'Confirm Password'}
-                icon={faUser}
-                label={'Confirm Password'}
-                disable={true}
-                secureTextEntry={true}
+                placeholder={this.state.address ? this.state.address : 'Enter Address'}
+                icon={faMapMarkerAlt}
+                label={'Address'}
                 profile={true}
-                onTyping={text => { this.setState({ confirmPassword: text }) }}
+                onTyping={text => { this.addressHandler(text) }}
               />
             </View> :
               <View style={{
@@ -434,7 +446,21 @@ class Profile extends Component {
                       marginRight: 10
                     }}
                   />
-                  <Text>{this.state.email || 'No data'}</Text>
+                  <Text>{this.state.address || 'No address provided'}</Text>
+                </View>
+                <View style={{
+                  flexDirection: 'row',
+                  padding: 10
+                }}>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    size={20}
+                    style={{
+                      color: Color.black,
+                      marginRight: 10
+                    }}
+                  />
+                  <Text>{this.state.gender || 'Gender'}</Text>
                 </View>
               </View>}
           </View>
@@ -449,12 +475,13 @@ class Profile extends Component {
                 this.setState({ isImageUpload: false, isLoading: false })
               }} /> : null}
         </ScrollView>
-        <View style={{
-          bottom: 80,
+        {this.state.isLoading ? <Spinner mode="overlay" /> : null}
+        {this.state.isEdit && <View style={{
+          bottom: 10,
           width: '90%'
         }}>
-          <CustomizedButton onClick={() => { this.update() }} title={'Save'}></CustomizedButton>
-        </View>
+          <CustomizedButton onClick={() => { this.update() }} title={'Update'}></CustomizedButton>
+        </View>}
       </View>
     );
   }

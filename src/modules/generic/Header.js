@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Dimensions, SafeAreaView, TextInput } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAlignLeft, faBars, faChevronLeft, faClock, faHistory, faShoppingBag, faStar, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faBars, faChevronLeft, faClock, faHistory, faShoppingBag, faStar, faEdit, faQrcode, faCamera } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { BasicStyles, Color } from 'common';
@@ -20,7 +20,7 @@ class Header extends Component {
   }
 
   navigateToScreen = (route, message) => {
-    
+
     this.props.navigation.toggleDrawer();
     const navigateAction = NavigationActions.navigate({
       routeName: 'drawerStack',
@@ -48,7 +48,6 @@ class Header extends Component {
   render() {
     const { routeName } = this.props.navigation.state;
     const { theme } = this.props.state;
-    console.log(this.props.navigation.state);
     return (
       <View
         style={{
@@ -61,56 +60,60 @@ class Header extends Component {
           padding: 5
         }}>
         <TouchableOpacity
-        style={{
-          position: 'absolute',
-          left: 10
-        }}
+          style={{
+            position: 'absolute',
+            left: 10
+          }}
           onPress={() => {
             this.props.navigation.toggleDrawer()
           }}
         >
-            <FontAwesomeIcon
-              icon={faAlignLeft}
-              size={BasicStyles.iconSize}
-              style={[
-                BasicStyles.iconStyle,
-                {
-                  color: Color.gray
-                },
-              ]}
-            />
+          <FontAwesomeIcon
+            icon={faAlignLeft}
+            size={BasicStyles.iconSize}
+            style={[
+              BasicStyles.iconStyle,
+              {
+                color: Color.gray
+              },
+            ]}
+          />
         </TouchableOpacity>
 
-        <Text style={{
+        {routeName === 'Homepage' && <Text style={{
           color: Color.white,
           fontFamily: 'Poppins-SemiBold'
-        }}>Welcome Kennette!</Text>
+        }}>Welcome Kennette!</Text>}
 
-        {/* <TouchableOpacity
-          onPress={() => {
-            this.navigateToScreen('MessagePage', 'Success Message')
-          }}
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 50,
-            width: 50,
-            position: 'absolute',
-            right: 1,
-            elevation: BasicStyles.elevation
-          }}
-        >
+        {routeName === 'Dashboard' &&
+          <TouchableOpacity
+            onPress={() => {
+              // this.navigateToScreen('MessagePage', 'Success Message')
+              // this.props.setQRCodeModal(true);
+              this.props.navigation.navigate('qrCodeScannerStack');
+            }}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 50,
+              width: 50,
+              position: 'absolute',
+              right: 1,
+              elevation: BasicStyles.elevation
+            }}
+          >
             <FontAwesomeIcon
-              icon={faHistory}
+              icon={faQrcode}
               size={BasicStyles.iconSize}
               style={[
                 BasicStyles.iconStyle,
                 {
-                  color: Color.gray,
+                  color: Color.black,
                 },
               ]}
             />
-        </TouchableOpacity> */}
+          </TouchableOpacity>
+        }
       </View>
     );
   }
@@ -123,7 +126,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.logout()),
     setStatusSearch: (statusSearch) => dispatch(actions.setStatusSearch(statusSearch)),
-    setCreateStatus: (createStatus) => dispatch(actions.setCreateStatus(createStatus))
+    setCreateStatus: (createStatus) => dispatch(actions.setCreateStatus(createStatus)),
+    setQRCodeModal: (isVisible) => dispatch(actions.setQRCodeModal({ isVisible: isVisible }))
   };
 };
 

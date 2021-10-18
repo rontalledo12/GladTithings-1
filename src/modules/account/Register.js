@@ -18,6 +18,7 @@ import { faComments, faArrowRight, faUser } from '@fortawesome/free-solid-svg-ic
 // import Button from 'components/Form/Button';
 import Button from '../generic/Button.js'
 const width = Math.round(Dimensions.get('window').width);
+const height = Math.round(Dimensions.get('window').height);
 class Register extends Component {
   //Screen1 Component
   constructor(props) {
@@ -129,13 +130,18 @@ class Register extends Component {
       >
         <ScrollView
           showsVerticalScrollIndicator={false}>
-          <View style={Style.MainContainer}>
+          <View style={{
+            ...Style.MainContainer,
+            minHeight: height * 1.5
+            }}>
             <Header params={"Sign Up"}></Header>
             {
               errorMessage !== null && (
                 <View style={{
                   flexDirection: 'row',
-                  padding: 30
+                  paddingLeft: 30,
+                  paddingRight: 30,
+                  paddingBottom: 10
                 }}>
                   <Text style={[Style.messageText, {
                     fontFamily: 'Poppins-SemiBold',

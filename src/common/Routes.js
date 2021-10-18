@@ -16,6 +16,7 @@ export default {
   notificationDelete: apiUrl + 'notifications/delete',
   accountProfileCreate: apiUrl + 'account_profiles/create',
   accountProfileUpdate: apiUrl + 'account_profiles/update',
+  accountProfileRetrieve: apiUrl + 'account_profiles/retrieve',
   accountInformationRetrieve: apiUrl + 'account_informations/retrieve',
   accountInformationUpdate: apiUrl + 'account_informations/update',
   emailAlert: apiUrl + 'emails/alert',
@@ -36,6 +37,14 @@ export default {
   commentsDelete: apiUrl + 'comments/delete',
   commentMembersCreate: apiUrl + 'comment_members/create',
   commentRepliesCreate: apiUrl + 'comment_replies/create',
-  merchantsRetrieve: apiUrl + 'merchants/retrieve_merchants',
+  merchantsRetrieve: apiUrl + 'account_merchants/retrieve_with_featured_photos',
   merchantOneRetrieve: apiUrl + 'merchants/retrieve',
+  ledgerDirectTransfer: apiUrl + 'ledger/direct_transfer',
+  notificationSettingsRetrieve: apiUrl + 'notification_settings/retrieve',
+  notificationSettingOtp: apiUrl + 'notification_settings/update_otp',
+  ledgerDashboard: apiUrl + 'ledger/dashboard',
+  ledgerTransfer: apiUrl + 'ledger/transfer',
+  transactionHistoryRetrieve: apiUrl + 'ledger/transaction_history',
+  ledgerCreate: apiUrl + 'ledger/create',
+  createPaymentIntent: apiUrl + 'stripe_webhooks/create_payment_intent'
 };

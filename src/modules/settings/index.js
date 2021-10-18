@@ -18,7 +18,7 @@ const data = [
   {
     title: 'Edit Profile',
     description: "Update your personal information and more.",
-    route: 'editProfileStack'
+    route: 'profileStack'
   },
   {
     title: 'Subscriptions',
@@ -33,7 +33,7 @@ const data = [
   {
     title: 'About Glad Tithings',
     description: "Open website ",
-    route: 'websiteStack'
+    route: 'otpStack'
   },
   {
     title: 'Display Settings',
@@ -41,9 +41,9 @@ const data = [
     route: 'displayStack'
   },
   {
-    title: 'Error Message',
-    description: "Change your theme colors here",
-    route: 'pageMessageStack'
+    title: 'Laguage Settings',
+    description: "Manage languages you want to use here",
+    route: 'languageSettingsStack'
   },
 ]
 
